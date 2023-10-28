@@ -19,9 +19,10 @@ This is a web application built using ASP.NET Core 8, a powerful and flexible fr
 1. **Clone the Repository:**
    git clone https://github.com/Nadine-Mousa/Bulky_MVC.git
 
-3. **Navigate to the Project Directory:**
+2. **Navigate to the Project Directory:**
    cd your-repo
+3. **Modify the connection string**
 
-3. **Build and Run:**
+4. **Build and Run:**
 
 
