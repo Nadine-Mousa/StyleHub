@@ -1,6 +1,6 @@
-using Bulky.DataAccess;
-using Bulky.DataAccess.Repository;
-using Bulky.DataAccess.Repository.IRepository;
+using BookNook.DataAccess;
+using BookNook.DataAccess.Repository;
+using BookNook.DataAccess.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,10 +1,10 @@
-﻿using Bulky.DataAccess;
-using Bulky.DataAccess.Repository;
-using Bulky.DataAccess.Repository.IRepository;
-using Bulky.Models;
+﻿using BookNook.DataAccess;
+using BookNook.DataAccess.Repository;
+using BookNook.DataAccess.Repository.IRepository;
+using BookNook.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BulkyWeb.Controllers
+namespace BookNookWeb.Controllers
 {
     public class CategoryController : Controller
     {

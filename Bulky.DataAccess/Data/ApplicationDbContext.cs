@@ -1,9 +1,9 @@
-﻿using Bulky.Models;
+﻿using BookNook.Models;
 using Microsoft.EntityFrameworkCore;
 
 
 
-namespace Bulky.DataAccess
+namespace BookNook.DataAccess
 {
     public class ApplicationDbContext : DbContext
     {

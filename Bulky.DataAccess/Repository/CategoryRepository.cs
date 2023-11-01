@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Bulky.Models;
-using Bulky.DataAccess.Repository.IRepository;
+using BookNook.Models;
+using BookNook.DataAccess.Repository.IRepository;
 
-namespace Bulky.DataAccess.Repository
+namespace BookNook.DataAccess.Repository
 {
     public class CategoryRepository : Repository<Category>, IRepositoryCategory
     {

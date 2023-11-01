@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bulky.DataAccess.Repository.IRepository
+namespace BookNook.DataAccess.Repository.IRepository
 {
     public interface IRepository<T> where T : class
     {

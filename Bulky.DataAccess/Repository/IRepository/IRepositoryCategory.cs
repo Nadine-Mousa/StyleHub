@@ -1,4 +1,4 @@
-﻿using Bulky.Models;
+﻿using BookNook.Models;
 using Microsoft.EntityFrameworkCore.Update.Internal;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Bulky.DataAccess.Repository.IRepository
+namespace BookNook.DataAccess.Repository.IRepository
 {
     public interface IRepositoryCategory : IRepository<Category>
     {
