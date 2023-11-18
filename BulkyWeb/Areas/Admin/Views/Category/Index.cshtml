@@ -1,0 +1,34 @@
+﻿@model List<Category>
+
+<div class="container">
+  
+    <div class="row pt-4">
+        
+        <div class="col-6">
+            <h2>CATEGORY LIST</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-area="Admin" asp-controller="Category" asp-action="Create" class="btn btn-outline-primary"><i class="bi bi-plus-circle"></i> CREATE NEW CATEGORY</a>
+        </div>
+    </div>
+
+
+    <table id="myTable" class="table table-bordered table-striped pt-10">
+        <thead>
+            <tr>
+                <th>Category Name</th>
+                <th>Display Order</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    
+
+    </table>
+
+</div>
+@section scripts{
+    <script src="~/js/categories.js"></script>
+}

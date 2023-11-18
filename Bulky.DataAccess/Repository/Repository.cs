@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using BookNook.DataAccess.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BookNook.DataAccess.Repository
 {
@@ -21,19 +24,41 @@ namespace BookNook.DataAccess.Repository
         public void Add(T entity)
         {
             _dbSet.Add(entity);
-            _db.SaveChanges();
         }
 
-        public T Get(int id)
+        public void AddRange(IEnumerable<T> entities)
         {
-            T entity = _dbSet.Find(id);
-            return entity;
+            _dbSet.AddRange(entities);
         }
 
-        public IEnumerable<T> GetAll()
+        public T Get(Expression<Func<T, bool>> filter, string? includeProperties = null)
         {
-            IEnumerable<T> objects = _dbSet.ToList();
-            return objects;
+            IQueryable<T> query = _dbSet;
+            query = query.Where(filter);
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includeProp in includeProperties
+                    .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
+            return query.FirstOrDefault();
+        }
+
+        public IEnumerable<T> GetAll(string? includeProperties = null)
+        {
+            IQueryable<T> query = _dbSet;
+
+            if(includeProperties != null)
+            {
+                foreach (var includeProperty in includeProperties.Split(new char[','], StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query =  query.Include(includeProperty);
+                }
+            }
+            
+            return query;
         }
 
         public void Remove(int id)
@@ -42,19 +67,28 @@ namespace BookNook.DataAccess.Repository
             if (entity != null)
             {
                 _dbSet.Remove(entity);
-                _db.SaveChanges();
             }
         }
 
         public void Remove(T entity)
         {
             _db.Remove(entity);
-            _db.SaveChanges();
         }
 
         public void RemoveRange(IEnumerable<T> entities)
         {
-            throw new NotImplementedException();
+            _db.RemoveRange(entities);
+        }
+
+        public void Update(T entity)
+        {
+            _db.Update(entity);
+        }
+
+        public IEnumerable<T> Where(Expression<Func<T, bool>> filter)
+        {
+            IEnumerable<T> images = _dbSet.Where(filter);
+            return images;
         }
     }
 }

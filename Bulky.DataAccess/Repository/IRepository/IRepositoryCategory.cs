@@ -11,6 +11,5 @@ namespace BookNook.DataAccess.Repository.IRepository
 {
     public interface IRepositoryCategory : IRepository<Category>
     {
-        public void Update(Category Category);
     }
 }

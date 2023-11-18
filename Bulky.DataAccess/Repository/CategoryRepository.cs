@@ -16,10 +16,5 @@ namespace BookNook.DataAccess.Repository
             _db = db;
         }
 
-        public void Update(Category Category)
-        {
-            _db.Categories.Update(Category);
-            _db.SaveChanges();
-        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace BookNook.Models
@@ -16,6 +17,10 @@ namespace BookNook.Models
         [DisplayName("Display Order")]
         [Range(1, 100, ErrorMessage = "The Display Order should be between 1 and 100")]
         public int DisplayOrder { get; set; }
+        [ValidateNever]
+        public IEnumerable<Product> Products { get; set; }
+        [DisplayName("Category Image")]
+        public string? ImageUrl { get; set; }
 
     }
 }
