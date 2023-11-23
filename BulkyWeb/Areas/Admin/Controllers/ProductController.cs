@@ -89,10 +89,6 @@ namespace BookNookWeb.Areas.Admin.Controllers
 
         }
         
-        public IActionResult Delete()
-        {
-            return View();
-        }
 
         private void AddProductImages(List<IFormFile> files, int id)
         {
@@ -148,5 +144,30 @@ namespace BookNookWeb.Areas.Admin.Controllers
         }
 
 
+        #region APICALLS
+
+        public IActionResult GetAll()
+        {
+            IEnumerable<Product> Products = _unitUnitOfWork.ProductRepo.GetAll();
+            return Json(new { data = Products });
+        }
+
+        public IActionResult Delete(int id)
+        {
+            if (string.Equals(id.ToString(), null) || id == 0)
+            {
+                return Json(new { success = false, message = "Error happened, Please try again." });
+            }
+
+
+            // Delete product from db
+            _unitUnitOfWork.ProductRepo.Remove(id);
+
+            // Remove its images
+            DeleteProductImages(id);
+
+            return Json(new {success = true, message = "Product Deleted successfully"});
+        }
+        #endregion
     }
 }
