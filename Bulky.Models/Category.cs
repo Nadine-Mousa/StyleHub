@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Policy;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookNook.Models
 {
+    [Index(nameof(Name), IsUnique = true)]
     public class Category
     {
         [Key]

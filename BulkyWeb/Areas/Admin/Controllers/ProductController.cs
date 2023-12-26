@@ -1,9 +1,11 @@
 ﻿using BookNook.DataAccess.Repository.IRepository;
 using BookNook.Models;
 using BookNook.Models.ViewModel;
+using LazZiya.ImageResize;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.Drawing;
 
 
 
@@ -22,8 +24,8 @@ namespace BookNookWeb.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            string includeProperties = "Category";
-            List<Product> Products = _unitUnitOfWork.ProductRepo.GetAll(includeProperties).ToList();
+            //string includeProperties = "Category";
+            List<Product> Products = _unitUnitOfWork.ProductRepo.GetAll(includeProperties:"Category").ToList();
 
             return View(Products);
         }
@@ -109,7 +111,7 @@ namespace BookNookWeb.Areas.Admin.Controllers
                 ImagesList.Add(new ProductImage
                 {
                     ProductId = id,
-                    ImageURL = Path.Combine(saveFolderPath, fileName)
+                    ImageURL = Path.Combine(@"\images\products", fileName)
                 });
 
             }
@@ -124,12 +126,13 @@ namespace BookNookWeb.Areas.Admin.Controllers
             // Delete from folder
             List<ProductImage> imagesToBeDeleted = _unitUnitOfWork.ProductImageRepo
                 .Where(x => x.ProductId == id).ToList();
+            string wwwRootPath = _webHostEnvironment.WebRootPath;
             if (!imagesToBeDeleted.IsNullOrEmpty())
             {
-                string imagePath = "";
+                string imagePath;
                 foreach (var image in imagesToBeDeleted)
                 {
-                    imagePath = image.ImageURL;
+                    imagePath = Path.Combine(wwwRootPath, image.ImageURL.TrimStart('\\'));
                     if (System.IO.File.Exists(imagePath))
                     {
                         System.IO.File.Delete(imagePath);
@@ -148,7 +151,7 @@ namespace BookNookWeb.Areas.Admin.Controllers
 
         public IActionResult GetAll()
         {
-            IEnumerable<Product> Products = _unitUnitOfWork.ProductRepo.GetAll();
+            List<Product> Products = _unitUnitOfWork.ProductRepo.GetAll(includeProperties : "Category").ToList();
             return Json(new { data = Products });
         }
 

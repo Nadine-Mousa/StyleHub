@@ -7,8 +7,9 @@
 
         <div class="form-group">
             <label asp-for="Name" class="form-label mt-4"></label>
-            <input asp-for="Name" class="form-control" placeholder="Enter category name">
+            <input asp-for="Name" id="categoryName" class="form-control" placeholder="Enter category name">
             <span asp-validation-for="Name" class="text-danger"></span>
+
         </div>
         <div class="form-group">
             <label asp-for="DisplayOrder" class="form-label mt-4"></label>
@@ -33,4 +34,6 @@
     @{
         <partial name="_ValidationScriptsPartial"/>
     }
+
 }
+

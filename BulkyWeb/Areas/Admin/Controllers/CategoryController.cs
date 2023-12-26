@@ -37,7 +37,7 @@ namespace BookNookWeb.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("Name", "The Name and Display Order cannot be exactly the same");
             }
-            if (!string.Equals(category.Name, null) && string.Equals(category.Name, "name"))
+            if (!string.Equals(category.Name, null) && string.Equals(category.Name, "categoryName"))
             {
                 ModelState.AddModelError("", "Name is not a valid value for a Category");
             }
@@ -89,7 +89,7 @@ namespace BookNookWeb.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("Name", "The Name and Display Order cannot be exactly the same");
             }
-            if (!string.Equals(category.Name, null) && string.Equals(category.Name, "name"))
+            if (!string.Equals(category.Name, null) && string.Equals(category.Name, "categoryName"))
             {
                 ModelState.AddModelError("", "Name is not a valid value for a Category");
             }
@@ -192,6 +192,7 @@ namespace BookNookWeb.Areas.Admin.Controllers
 
             return Json(new { success = true, message= "Category Deleted successfully!" });
         }
+
 
         #endregion
 

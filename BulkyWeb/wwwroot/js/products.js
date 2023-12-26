@@ -14,7 +14,7 @@ function LoadDataTable(){
             { data: 'name' },
             { data: 'price' },
             { data: 'stock' },
-            { data: 'category' },
+            { data: "category.name" },         // Needs Solution
             { data: 'rate' },
             {
                 data: 'id', 'render': function(data) {

@@ -1,12 +1,12 @@
 ﻿using BookNook.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Data.Common;
-
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 
 namespace BookNook.DataAccess
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -19,6 +19,8 @@ namespace BookNook.DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);         // this is to solve the primary key error
+
             modelBuilder.Entity<Category>().HasData(
                 new Category { Id = 1, Name = "History", DisplayOrder = 1},
                 new Category { Id = 2, Name = "Action", DisplayOrder = 2 },

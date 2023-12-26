@@ -1,6 +1,9 @@
-﻿@{
+﻿@model HomeVM
+
+@{
     ViewData["Title"] = "Home Page";
 }
+
 
 <!-- ***** Main Banner Area Start ***** -->
 <div class="main-banner" id="top">
@@ -13,7 +16,7 @@
                             <h4>We Are Hexashop</h4>
                             <span>Awesome, clean &amp; creative HTML5 Template</span>
                             <div class="main-border-button">
-                                <a href="#">Purchase Now!</a>
+                                <a asp-area="Customer" asp-controller="Home" asp-action="Products">Purchase Now!</a>
                             </div>
                         </div>
                         <img src="~/assets/images/left-banner-image.jpg" alt="">
@@ -35,7 +38,7 @@
                                             <h4>Women</h4>
                                             <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
                                             <div class="main-border-button">
-                                                <a href="#">Discover More</a>
+                                                <a asp-area="Customer" asp-controller="Home" asp-action="Products" asp-route-Id="@Model.womenProducts.FirstOrDefault().CategoryId">Discover More</a>
                                             </div>
                                         </div>
                                     </div>
@@ -55,7 +58,7 @@
                                             <h4>Men</h4>
                                             <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
                                             <div class="main-border-button">
-                                                <a href="#">Discover More</a>
+                                                <a asp-area="Customer" asp-controller="Home" asp-action="Products" asp-route-Id="@Model.womenProducts.FirstOrDefault().CategoryId">Discover More</a>
                                             </div>
                                         </div>
                                     </div>
@@ -75,7 +78,7 @@
                                             <h4>Kids</h4>
                                             <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
                                             <div class="main-border-button">
-                                                <a href="#">Discover More</a>
+                                                <a asp-area="Customer" asp-controller="Home" asp-action="Products" asp-route-Id="@Model.womenProducts.FirstOrDefault().CategoryId">Discover More</a>
                                             </div>
                                         </div>
                                     </div>
@@ -95,7 +98,7 @@
                                             <h4>Accessories</h4>
                                             <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
                                             <div class="main-border-button">
-                                                <a href="#">Discover More</a>
+                                                <a asp-area="Customer" asp-controller="Home" asp-action="Products" asp-route-Id="@Model.womenProducts.FirstOrDefault().CategoryId">Discover More</a>
                                             </div>
                                         </div>
                                     </div>
@@ -112,7 +115,199 @@
 <!-- ***** Main Banner Area End ***** -->
 
 
-                                                   <!-- ***** Social Area Starts ***** -->
+
+
+<!-- ***** Men Area Starts ***** -->
+<section class="section" id="men">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="section-heading">
+                    <h2>Men's Latest</h2>
+                    <span>Details to details is what makes Hexashop different from the other themes.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="men-item-carousel">
+                    <div class="owl-men-item owl-carousel">
+                        @foreach(var product in Model.menProducts)
+                        {
+                            <div class="item">
+                                <div class="thumb">
+                                    <div class="hover-content">
+                                        <ul>
+                                            <li><a asp-area="Customer" asp-action="Details" asp-route-Id="@product.Id"><i class="fa fa-eye"></i></a></li>
+                                            <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    @if (product.ProductImages.Any())
+                                    {
+                                        <img src="@product.ProductImages.First().ImageURL" alt="Product Image" style="width:250px; height:400px;">
+                                    }
+                                    else
+                                    {
+                                        <img src="/images/default-img.png" alt="ProductImage" style="width:250px; height:400px;">
+                                    }
+                                </div>
+                                <div class="down-content">
+                                    <h4>@product.Name</h4>
+                                    <span>@product.Price.ToString("c")</span>
+                                    <ul class="stars">
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                        }
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ***** Men Area Ends ***** -->
+
+
+
+<!-- ***** Women Area Starts ***** -->
+<section class="section" id="women">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="section-heading">
+                    <h2>Women's Latest</h2>
+                    <span>Details to details is what makes Hexashop different from the other themes.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="women-item-carousel">
+                    <div class="owl-women-item owl-carousel">
+                        @foreach(var product in Model.womenProducts)
+                        {
+                            <div class="item">
+                                <div class="thumb">
+                                    <div class="hover-content">
+                                        <ul>
+                                            <li><a asp-area="Customer" asp-action="Details" asp-route-Id="@product.Id"><i class="fa fa-eye"></i></a></li>
+                                            <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    @if (product.ProductImages.Any())
+                                    {
+                                        <img src="@product.ProductImages.First().ImageURL" alt="Product Image" style="width:250px; height:400px;">
+                                    }
+                                    else
+                                    {
+                                        <img src="/images/default-img.png" alt="ProductImage" style="width:250px; height:400px;">
+                                    }
+
+                                </div>
+                                <div class="down-content">
+                                    <h4>@product.Name</h4>
+                                    <span>@product.Price.ToString("c")</span>
+                                    <ul class="stars">
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                        }
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ***** Women Area Ends ***** -->
+
+
+
+<!-- ***** Kids Area Starts ***** -->
+<section class="section" id="kids">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="section-heading">
+                    <h2>Kid's Latest</h2>
+                    <span>Details to details is what makes Hexashop different from the other themes.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="kid-item-carousel">
+                    <div class="owl-kid-item owl-carousel">
+                        @foreach(var product in Model.kidsProducts)
+                        {
+                            <div class="item">
+                                <div class="thumb">
+                                    <div class="hover-content">
+                                        <ul>
+                                            <li><a asp-area="Customer" asp-action="Details" asp-route-Id="@product.Id"><i class="fa fa-eye"></i></a></li>
+                                            <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    @if (product.ProductImages.Any())
+                                    {
+                                        <img src="@product.ProductImages.First().ImageURL" alt="Product Image" style="width:250px; height:400px;">
+                                    }
+                                    else
+                                    {
+                                        <img src="/images/default-img.png" alt="ProductImage" style="width:250px; height:400px;">
+                                    }
+                                    
+                                </div>
+                                <div class="down-content">
+                                    <h4>@product.Name</h4>
+                                    <span>@product.Price.ToString("c")</span>
+                                    <ul class="stars">
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ***** Kids Area Ends ***** -->
+
+
+
+
+
+<!-- ***** Social Area Starts ***** -->
     <section class="section" id="social">
         <div class="container">
             <div class="row">
@@ -196,6 +391,8 @@
         </div>
     </section>
     <!-- ***** Social Area Ends ***** -->
+
+
 
     <!-- ***** Subscribe Area Starts ***** -->
     <div class="subscribe">

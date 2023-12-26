@@ -85,10 +85,19 @@ namespace BookNook.DataAccess.Repository
             _db.Update(entity);
         }
 
-        public IEnumerable<T> Where(Expression<Func<T, bool>> filter)
+        public IEnumerable<T> Where(Expression<Func<T, bool>> filter, string? includeProperties = null)
         {
-            IEnumerable<T> images = _dbSet.Where(filter);
-            return images;
+            IQueryable<T> query = _dbSet;
+            query = query.Where(filter);
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includeProp in includeProperties
+                    .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
+            return query;
         }
     }
 }
