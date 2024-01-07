@@ -48,19 +48,25 @@
             <div class="row">
                 <div class="col-12">
                     <nav class="main-nav">
+
                         <!-- ***** Logo Start ***** -->
                         <a href="index.html" class="logo">
+
                             <img src="~/assets/images/logo.png">
                         </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
+
                             <li class="scroll-to-section"><a asp-area="Customer" asp-controller="Home" asp-action="Index" class="active">Home</a></li>
                             <li class="scroll-to-section"><a href="#men">Men's</a></li>
                             <li class="scroll-to-section"><a href="#women">Women's</a></li>
                             <li class="scroll-to-section"><a href="#kids">Kid's</a></li>
-                            <li class="scroll-to-section"><a asp-area="Admin" asp-controller="Category" asp-action="Index">Categories</a></li>
-                            <li class="scroll-to-section"><a asp-area="Admin" asp-controller="Product" asp-action="Index">Products</a></li>
+                            @if (User.IsInRole(SD.Role_Admin))
+                            {
+                                <li class="scroll-to-section"><a asp-area="Admin" asp-controller="Category" asp-action="Index">Admin Panel</a></li>
+                            }
+                            
                             <li class="submenu">
                                 <a href="javascript:;">Pages</a>
                                 <ul>
@@ -79,10 +85,15 @@
                                 </ul>
                             </li>
                             <li class="scroll-to-section"><a href="#explore">Explore</a></li>
+                            <partial name="_LoginPartial" />
+
                         </ul>
+
                         <a class='menu-trigger'>
                             <span>Menu</span>
                         </a>
+
+
                         <!-- ***** Menu End ***** -->
                     </nav>
                 </div>
@@ -179,6 +190,9 @@
 
     <!-- Global Init -->
     <script src="~/assets/js/custom.js"></script>
+
+
+
 
 
 

@@ -1,7 +1,9 @@
 ﻿using BookNook.DataAccess.Repository.IRepository;
 using BookNook.Models;
 using BookNook.Models.ViewModel;
+using BookNook.Utility;
 using LazZiya.ImageResize;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -12,6 +14,7 @@ using System.Drawing;
 namespace BookNookWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles =SD.Role_Admin)]
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitUnitOfWork;
