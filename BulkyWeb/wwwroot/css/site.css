@@ -21,3 +21,16 @@
     body {
         margin-bottom: 60px;
     }
+
+
+    /* Custom Styles */
+.profilePicture {
+    height: 300px;
+    width: 300px;
+    object-fit: cover;
+}
+
+.avatar{
+    height: 45px;
+    width:45px;
+}

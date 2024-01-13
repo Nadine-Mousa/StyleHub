@@ -18,6 +18,7 @@ namespace BookNook.Models
         public string? HomeAddress {  get; set; }
         public string? Country { get; set; }
         public string? City { get; set; }
+        public byte[] ProfilePicture { get; set; }
 
     }
 }

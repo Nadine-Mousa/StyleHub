@@ -18,15 +18,11 @@ namespace BookNook.DataAccess
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
+        public DbSet<AppUser> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);         // this is to solve the primary key error
-
-            //modelBuilder.Entity<IdentityUser>()
-            //    .ToTable("Users")                       // rename table
-            //    .Ignore(e => e.PhoneNumberConfirmed);   // delete column
-
 
             modelBuilder.Entity<Category>().HasData(
                 new Category { Id = 1, Name = "History", DisplayOrder = 1},
