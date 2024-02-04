@@ -26,7 +26,8 @@ namespace BookNookWeb.Areas.Customer.Controllers
             string properties = "Category,ProductImages";
             homeVM.womenProducts = _unitOfWork.ProductRepo.Where(p => p.Category.Name == "Women", properties);
             homeVM.menProducts = _unitOfWork.ProductRepo.Where(p => p.Category.Name == "Men", properties);
-            homeVM.kidsProducts = _unitOfWork.ProductRepo.Where(p => p.Category.Name == "Kids", properties);
+            homeVM.kidsProducts = _unitOfWork.ProductRepo.Where(p => p.Category.Name == "kids", properties);
+            homeVM.accessoriesProducts = _unitOfWork.ProductRepo.Where(p => p.Category.Name == "Accessories", properties);
 
 
             return View(homeVM);
@@ -48,17 +49,18 @@ namespace BookNookWeb.Areas.Customer.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        public IActionResult Products(int? id)
+        
+        public IActionResult Products(int? Id)
         {
             List<Product> products = new List<Product>();
-            if(id == null)
+            if(Id == null)
             {
-                products = _unitOfWork.ProductRepo.GetAll(includeProperties: "ProductImages").ToList();      // Needs a solution to include ProductImages
+                products = _unitOfWork.ProductRepo.GetAll(includeProperties: "ProductImages").ToList();
                 products = Helper.ShuffleList<Product>(products);
             }
             else
             {
-                products = _unitOfWork.ProductRepo.Where(p => p.CategoryId == id, includeProperties:"ProductImages").ToList();
+                products = _unitOfWork.ProductRepo.Where(p => p.CategoryId == Id, includeProperties:"ProductImages").ToList();
             }
             
             return View(products);

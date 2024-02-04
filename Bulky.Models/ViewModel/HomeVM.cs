@@ -11,6 +11,7 @@ namespace BookNook.Models.ViewModel
         public IEnumerable<Product> womenProducts { get; set; }
         public IEnumerable<Product> menProducts { get; set; }
         public IEnumerable<Product> kidsProducts { get; set; }
+        public IEnumerable<Product> accessoriesProducts { get; set; }
 
     }
 }

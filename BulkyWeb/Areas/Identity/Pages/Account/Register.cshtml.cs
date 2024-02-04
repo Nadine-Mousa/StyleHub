@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
@@ -148,6 +149,14 @@ namespace BookNookWeb.Areas.Identity.Pages.Account
 
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+            // check if there is an admin
+            bool adminExists = _userManager.GetUsersInRoleAsync(SD.Role_Admin).Result.Count() > 0;
+            if(adminExists is false)
+            {
+                // create an admin user
+
+            }
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)

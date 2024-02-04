@@ -38,7 +38,10 @@
                                             <h4>Women</h4>
                                             <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
                                             <div class="main-border-button">
-                                                <a asp-area="Customer" asp-controller="Home" asp-action="Products" asp-route-Id="@Model.womenProducts.FirstOrDefault().CategoryId">Discover More</a>
+                                                @if (Model.womenProducts?.FirstOrDefault()?.CategoryId != null)
+                                                {
+                                                    <a asp-area="Customer" asp-controller="Home" asp-action="Products" asp-route-Id="@Model.womenProducts.FirstOrDefault().CategoryId">Discover More</a>
+                                                }
                                             </div>
                                         </div>
                                     </div>
@@ -58,7 +61,10 @@
                                             <h4>Men</h4>
                                             <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
                                             <div class="main-border-button">
-                                                <a asp-area="Customer" asp-controller="Home" asp-action="Products" asp-route-Id="@Model.womenProducts.FirstOrDefault().CategoryId">Discover More</a>
+                                                @if (Model.menProducts?.FirstOrDefault()?.CategoryId != null)
+                                                {
+                                                <a asp-area="Customer" asp-controller="Home" asp-action="Products" asp-route-Id="@Model.menProducts.FirstOrDefault().CategoryId">Discover More</a>
+                                                }
                                             </div>
                                         </div>
                                     </div>
@@ -78,7 +84,10 @@
                                             <h4>Kids</h4>
                                             <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
                                             <div class="main-border-button">
-                                                <a asp-area="Customer" asp-controller="Home" asp-action="Products" asp-route-Id="@Model.womenProducts.FirstOrDefault().CategoryId">Discover More</a>
+                                                @if (Model.kidsProducts?.FirstOrDefault()?.CategoryId != null)
+                                                {
+                                                <a asp-area="Customer" asp-controller="Home" asp-action="Products" asp-route-Id="@Model.kidsProducts.FirstOrDefault().CategoryId">Discover More</a>
+                                                }
                                             </div>
                                         </div>
                                     </div>
@@ -98,7 +107,11 @@
                                             <h4>Accessories</h4>
                                             <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
                                             <div class="main-border-button">
-                                                <a asp-area="Customer" asp-controller="Home" asp-action="Products" asp-route-Id="@Model.womenProducts.FirstOrDefault().CategoryId">Discover More</a>
+                                                @if (Model.accessoriesProducts?.FirstOrDefault()?.CategoryId != null)
+                                                {
+                                                    <a asp-area="Customer" asp-controller="Home" asp-action="Products" asp-route-Id="@Model.accessoriesProducts.FirstOrDefault().CategoryId">Discover More</a>
+                                                }
+
                                             </div>
                                         </div>
                                     </div>

@@ -14,5 +14,13 @@ namespace BookNook.Utility
         public const string Role_Admin = "Admin"; 
         public const string Role_Employee = "Employee";
 
+        public const string MAIN_ADMIN_EMAIL = "admin_main@gmail.com";
+        public const string MAIN_ADMIN_PASSWORD = "Admin*Main1234";
+
+        public const string Admin_Area = "Admin";
+        public const string Customer_Area = "Customer";
+        public const string Identity_Area = "Identity";
+
+
     }
 }

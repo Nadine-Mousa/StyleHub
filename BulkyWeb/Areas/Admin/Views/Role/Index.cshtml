@@ -1,0 +1,22 @@
+﻿@model List<IdentityRole>
+
+
+<table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Role Name </th>
+                <th>Role Id</th>
+            </tr>
+            
+        </thead>
+        <tbody>
+        @foreach(var role in Model)
+        {
+            <tr>
+                <td>@role.Name</td>
+                <td>@role.Id</td>
+            </tr>
+        }
+            
+        </tbody>
+    </table>

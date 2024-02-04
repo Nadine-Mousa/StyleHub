@@ -1,0 +1,68 @@
+﻿@model List<UserVM>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<div class="container">
+
+    <div class="row pt-4">
+
+        <div class="col-6">
+            <h2>APPLICATION USERS</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-area="Admin" asp-controller="User" asp-action="Create" class="btn btn-outline-primary"><i class="bi bi-plus-circle"></i> ADD USER</a>
+        </div>
+    </div>
+
+
+    <table id="myTable" class="table table-bordered table-striped pt-10">
+        <thead>
+            <tr>
+                
+                <th>Profile Picture</th>
+                <th>User Id</th>
+                <th>User Name</th>
+                <th>Email </th>
+                <th>Email Confirmed</th>
+                <th>Roles</th>
+                <th>Phone Number</th>
+                <th>Country</th>
+                <th>City </th>
+                <th>Home Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var user in Model)
+            {
+                <tr>
+                    <td>
+                        @if(user.ProfilePicture is not null)
+                        {
+                            <img class="avatar rounded-circle" src="data:image/*;base64,@(Convert.ToBase64String(@user.ProfilePicture))" />
+                        }
+                        else
+                        {
+                            <img class="avatar rounded-circle" src="~/images/profile_default_img.png"/>
+                        }
+                    </td>
+                    <td>@user.Id</td>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td>@user.EmailConfirmed</td>
+                    <td>@* @string.Join(", ", user.Roles.ToList()) *@</td>
+                    <td>@user.PhoneNumber</td>
+                    <td>@user.Country</td>
+                    <td>@user.City</td>
+                    <td>@user.HomeAddress</td>
+                    
+                </tr>
+            }
+            
+        </tbody>
+
+
+    </table>
+
+</div>

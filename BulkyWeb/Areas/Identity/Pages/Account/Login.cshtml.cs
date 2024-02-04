@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using BookNook.Models;
+using System.Net.Mail;
 
 namespace BookNookWeb.Areas.Identity.Pages.Account
 {
@@ -112,7 +113,7 @@ namespace BookNookWeb.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var username = new EmailAddressAttribute().IsValid(Input.Email) ? _userManager.FindByEmailAsync(Input.Email).Result.UserName : Input.Email;
+                var username = new EmailAddressAttribute().IsValid(Input.Email) ? new MailAddress(Input.Email).User : Input.Email;  // This prevents the user from changing its username
 
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
