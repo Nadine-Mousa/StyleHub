@@ -17,7 +17,7 @@ This is a web application built using ASP.NET Core 8, a powerful and flexible fr
 - ## Getting Started
 
 1. **Clone the Repository:**
-   git clone https://github.com/Nadine-Mousa/Bulky_MVC.git
+   git clone https://github.com/Nadine-Mousa/StyleHub.git
 
 2. **Navigate to the Project Directory:**
    cd your-repo
