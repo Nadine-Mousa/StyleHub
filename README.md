@@ -1,4 +1,4 @@
-# Bulky_MVC
+# StyleHub
 # ASP.NET Core MVC 8 Website
 
 Welcome to my ASP.NET Core MVC 8 website!
