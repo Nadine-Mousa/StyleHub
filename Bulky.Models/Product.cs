@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 
-namespace BookNook.Models
+namespace StyleHub.Models
 {
     public class Product
     {

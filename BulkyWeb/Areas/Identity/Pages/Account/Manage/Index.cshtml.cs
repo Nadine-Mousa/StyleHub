@@ -6,12 +6,12 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using BookNook.Models;
+using StyleHub.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace BookNookWeb.Areas.Identity.Pages.Account.Manage
+namespace StyleHubWeb.Areas.Identity.Pages.Account.Manage
 {
     public class IndexModel : PageModel
     {

@@ -14,10 +14,10 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using BookNook.Models;
+using StyleHub.Models;
 using System.Net.Mail;
 
-namespace BookNookWeb.Areas.Identity.Pages.Account
+namespace StyleHubWeb.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {

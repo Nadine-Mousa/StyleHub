@@ -1,14 +1,14 @@
-﻿using BookNook.DataAccess;
-using BookNook.DataAccess.Repository;
-using BookNook.DataAccess.Repository.IRepository;
-using BookNook.Models;
-using BookNook.Utility;
+﻿using StyleHub.DataAccess;
+using StyleHub.DataAccess.Repository;
+using StyleHub.DataAccess.Repository.IRepository;
+using StyleHub.Models;
+using StyleHub.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.IdentityModel.Tokens;
 
-namespace BookNookWeb.Areas.Admin.Controllers
+namespace StyleHubWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = SD.Role_Admin)]

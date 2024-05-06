@@ -1,4 +1,4 @@
-namespace BookNook.Models
+namespace StyleHub.Models
 {
     public class ErrorViewModel
     {

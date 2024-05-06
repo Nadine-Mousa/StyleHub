@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace BookNook.DataAccess.Migrations
+namespace StyleHub.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class AddProfilePictureToUsersTable : Migration

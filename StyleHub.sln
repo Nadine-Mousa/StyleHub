@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34205.153
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookNookWeb", "BulkyWeb\BookNookWeb.csproj", "{7B04A3BD-070D-4849-8385-0F7D04A61425}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StyleHubWeb", "BulkyWeb\StyleHubWeb.csproj", "{7B04A3BD-070D-4849-8385-0F7D04A61425}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bulky_Razor", "Bulky_Razor\Bulky_Razor.csproj", "{9CBF9E6E-E1A0-4F6C-A0B4-A2DBD370529D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookNook.DataAccess", "Bulky.DataAccess\BookNook.DataAccess.csproj", "{378ADDA2-2BCC-4A37-AA89-17B34E2E6B4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StyleHub.DataAccess", "Bulky.DataAccess\StyleHub.DataAccess.csproj", "{378ADDA2-2BCC-4A37-AA89-17B34E2E6B4D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookNook.Models", "Bulky.Models\BookNook.Models.csproj", "{DDBB9D83-1693-49C3-920E-011E9B641542}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StyleHub.Models", "Bulky.Models\StyleHub.Models.csproj", "{DDBB9D83-1693-49C3-920E-011E9B641542}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookNook.Utility", "Bulky.Utility\BookNook.Utility.csproj", "{3E4113ED-418E-4ADE-96A2-B04C789A820B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StyleHub.Utility", "Bulky.Utility\StyleHub.Utility.csproj", "{3E4113ED-418E-4ADE-96A2-B04C789A820B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

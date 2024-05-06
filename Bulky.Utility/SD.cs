@@ -5,7 +5,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookNook.Utility
+namespace StyleHub.Utility
 {
     // Static Details
     public static class SD

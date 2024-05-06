@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BookNook.DataAccess.Repository.IRepository;
+using StyleHub.DataAccess.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 
-namespace BookNook.DataAccess.Repository
+namespace StyleHub.DataAccess.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {

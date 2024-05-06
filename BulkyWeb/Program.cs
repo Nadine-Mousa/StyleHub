@@ -1,13 +1,13 @@
-using BookNook.DataAccess;
-using BookNook.DataAccess.Repository;
-using BookNook.DataAccess.Repository.IRepository;
+using StyleHub.DataAccess;
+using StyleHub.DataAccess.Repository;
+using StyleHub.DataAccess.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using BookNook.Utility;
+using StyleHub.Utility;
 using Microsoft.Extensions.Options;
-using BookNook.Models;
+using StyleHub.Models;
 using System.Net.Mail;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 

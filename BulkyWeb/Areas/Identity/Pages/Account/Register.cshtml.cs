@@ -14,8 +14,8 @@ using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using BookNook.Models;
-using BookNook.Utility;
+using StyleHub.Models;
+using StyleHub.Utility;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -28,7 +28,7 @@ using Microsoft.IdentityModel.Tokens;
 using Compare = System.ComponentModel.DataAnnotations.CompareAttribute;
 using SelectListItem = Microsoft.AspNetCore.Mvc.Rendering.SelectListItem;
 
-namespace BookNookWeb.Areas.Identity.Pages.Account
+namespace StyleHubWeb.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {

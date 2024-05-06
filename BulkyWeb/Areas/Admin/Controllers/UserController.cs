@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using BookNook.Models;
-using BookNook.Models.ViewModel;
-using BookNook.Utility;
+using StyleHub.Models;
+using StyleHub.Models.ViewModel;
+using StyleHub.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookNookWeb.Areas.Admin.Controllers
+namespace StyleHubWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = SD.Role_Admin)]

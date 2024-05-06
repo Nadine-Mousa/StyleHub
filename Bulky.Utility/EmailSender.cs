@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace BookNook.Utility
+namespace StyleHub.Utility
 {
     public class EmailSender : IEmailSender
     {

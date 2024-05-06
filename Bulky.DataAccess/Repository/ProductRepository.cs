@@ -1,5 +1,5 @@
-﻿using BookNook.DataAccess.Repository.IRepository;
-using BookNook.Models;
+﻿using StyleHub.DataAccess.Repository.IRepository;
+using StyleHub.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace BookNook.DataAccess.Repository
+namespace StyleHub.DataAccess.Repository
 {
     public class ProductRepository : Repository<Product>
     {

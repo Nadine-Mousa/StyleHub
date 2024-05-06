@@ -1,10 +1,10 @@
-﻿using BookNook.Utility;
+﻿using StyleHub.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace BookNookWeb.Areas.Customer.Controllers
+namespace StyleHubWeb.Areas.Customer.Controllers
 {
     [Area(SD.Customer_Area)]
     [Authorize]

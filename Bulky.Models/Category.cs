@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Security.Policy;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookNook.Models
+namespace StyleHub.Models
 {
     [Index(nameof(Name), IsUnique = true)]
     public class Category

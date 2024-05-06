@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BookNook.Models;
-using BookNook.DataAccess.Repository.IRepository;
+using StyleHub.Models;
+using StyleHub.DataAccess.Repository.IRepository;
 
-namespace BookNook.DataAccess.Repository
+namespace StyleHub.DataAccess.Repository
 {
     public class CategoryRepository : Repository<Category>, IRepositoryCategory
     {

@@ -1,11 +1,11 @@
-﻿using BookNook.Models;
+﻿using StyleHub.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Data.Common;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
 
-namespace BookNook.DataAccess
+namespace StyleHub.DataAccess
 {
     public class ApplicationDbContext : IdentityDbContext
     {

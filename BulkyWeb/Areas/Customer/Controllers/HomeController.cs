@@ -1,12 +1,12 @@
-using BookNook.DataAccess.Repository.IRepository;
-using BookNook.Models;
-using BookNook.Models.ViewModel;
-using BookNook.Utility;
+using StyleHub.DataAccess.Repository.IRepository;
+using StyleHub.Models;
+using StyleHub.Models.ViewModel;
+using StyleHub.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace BookNookWeb.Areas.Customer.Controllers
+namespace StyleHubWeb.Areas.Customer.Controllers
 {
     [Area("Customer")]
     public class HomeController : Controller

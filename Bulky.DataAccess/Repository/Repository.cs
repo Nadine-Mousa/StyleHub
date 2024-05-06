@@ -5,11 +5,11 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using BookNook.DataAccess.Repository.IRepository;
+using StyleHub.DataAccess.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
-namespace BookNook.DataAccess.Repository
+namespace StyleHub.DataAccess.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {

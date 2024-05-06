@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookNook.Models
+namespace StyleHub.Models
 {
     public class CartItem
     {

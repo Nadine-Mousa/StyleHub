@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookNook.Models.ViewModel
+namespace StyleHub.Models.ViewModel
 {
     public  class HomeVM
     {

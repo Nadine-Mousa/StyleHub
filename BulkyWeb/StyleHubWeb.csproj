@@ -117,9 +117,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Bulky.DataAccess\BookNook.DataAccess.csproj" />
-    <ProjectReference Include="..\Bulky.Models\BookNook.Models.csproj" />
-    <ProjectReference Include="..\Bulky.Utility\BookNook.Utility.csproj" />
+    <ProjectReference Include="..\Bulky.DataAccess\StyleHub.DataAccess.csproj" />
+    <ProjectReference Include="..\Bulky.Models\StyleHub.Models.csproj" />
+    <ProjectReference Include="..\Bulky.Utility\StyleHub.Utility.csproj" />
   </ItemGroup>
 
   <ItemGroup>

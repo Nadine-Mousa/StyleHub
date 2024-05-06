@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using BookNook.Models;
-using BookNook.Models.ViewModel;
+using StyleHub.Models;
+using StyleHub.Models.ViewModel;
 
-namespace BookNook.Utility
+namespace StyleHub.Utility
 {
     public class AutomapperProfile : Profile
     {

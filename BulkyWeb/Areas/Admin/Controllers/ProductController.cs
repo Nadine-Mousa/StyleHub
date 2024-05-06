@@ -1,7 +1,7 @@
-﻿using BookNook.DataAccess.Repository.IRepository;
-using BookNook.Models;
-using BookNook.Models.ViewModel;
-using BookNook.Utility;
+﻿using StyleHub.DataAccess.Repository.IRepository;
+using StyleHub.Models;
+using StyleHub.Models.ViewModel;
+using StyleHub.Utility;
 using LazZiya.ImageResize;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -11,7 +11,7 @@ using System.Drawing;
 
 
 
-namespace BookNookWeb.Areas.Admin.Controllers
+namespace StyleHubWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles =SD.Role_Admin)]
