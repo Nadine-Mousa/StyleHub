@@ -153,9 +153,9 @@
                                 <div class="thumb">
                                     <div class="hover-content">
                                         <ul>
-                                            <li><a asp-area="Customer" asp-action="Details" asp-route-Id="@product.Id"><i class="fa fa-eye"></i></a></li>
+                                            <li><a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-Id="@product.Id"><i class="fa fa-eye"></i></a></li>
                                             <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
+                                            <li><a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-Id="@product.Id"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
                                     @if (product.ProductImages.Any())
@@ -215,9 +215,9 @@
                                 <div class="thumb">
                                     <div class="hover-content">
                                         <ul>
-                                            <li><a asp-area="Customer" asp-action="Details" asp-route-Id="@product.Id"><i class="fa fa-eye"></i></a></li>
+                                            <li><a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-Id="@product.Id"><i class="fa fa-eye"></i></a></li>
                                             <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
+                                            <li><a asp-area="Customer" asp-controller="Cart" asp-action="AddToCart" asp-route-Id="@product.Id"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
                                     @if (product.ProductImages.Any())
@@ -278,9 +278,9 @@
                                 <div class="thumb">
                                     <div class="hover-content">
                                         <ul>
-                                            <li><a asp-area="Customer" asp-action="Details" asp-route-Id="@product.Id"><i class="fa fa-eye"></i></a></li>
+                                            <li><a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-Id="@product.Id"><i class="fa fa-eye"></i></a></li>
                                             <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
+                                            <li><a asp-area="Customer" asp-controller="Cart" asp-action="AddToCart" asp-route-Id="@product.Id"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
                                     @if (product.ProductImages.Any())

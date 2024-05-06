@@ -2,6 +2,7 @@ using BookNook.DataAccess.Repository.IRepository;
 using BookNook.Models;
 using BookNook.Models.ViewModel;
 using BookNook.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -66,7 +67,11 @@ namespace BookNookWeb.Areas.Customer.Controllers
             return View(products);
         }
 
-        public IActionResult Cart()
+        public IActionResult ContactUs()
+        {
+            return View();
+        }
+        public IActionResult AboutUs()
         {
             return View();
         }

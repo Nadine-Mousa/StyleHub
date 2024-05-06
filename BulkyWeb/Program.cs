@@ -18,13 +18,21 @@ builder.Services.AddControllersWithViews()
     .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
 
-
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
+
+// Automapper
+var config = new AutoMapper.MapperConfiguration(cfg =>
+{
+    cfg.AddProfile(new AutomapperProfile());
+});
+var mapper = config.CreateMapper();
+builder.Services.AddSingleton(mapper);
+
 
 builder.Services.ConfigureApplicationCookie(options=>
 {
@@ -33,21 +41,22 @@ builder.Services.ConfigureApplicationCookie(options=>
     options.AccessDeniedPath = "/Identity/Account/AccessDenied";
 });
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+//builder.Services.AddAuthentication(options =>
+//{
+//    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+//    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+//    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 
-});
+//});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-
 
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddRazorPages();
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

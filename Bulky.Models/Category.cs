@@ -11,7 +11,6 @@ namespace BookNook.Models
     {
         [Key]
         public int Id { get; set; }
-
         [Required]
         [MaxLength(30, ErrorMessage = "The Category Name should not exceed 30 characters")]
         [DisplayName("Category Name")]
