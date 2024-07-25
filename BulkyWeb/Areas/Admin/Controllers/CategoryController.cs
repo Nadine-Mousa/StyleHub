@@ -87,7 +87,8 @@ namespace StyleHubWeb.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Edit(Category category, IFormFile? file)
         {
-            // Custom Validations
+            // Category Custom Validations
+            
             if (string.Equals(category.Name, category.DisplayOrder))
             {
                 ModelState.AddModelError("Name", "The Name and Display Order cannot be exactly the same");
@@ -96,10 +97,11 @@ namespace StyleHubWeb.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("", "Name is not a valid value for a Category");
             }
-            // Category Image
+
+            // Update Category Image
             if(file != null)
             {
-                // Delete the old image if exists
+                // Delete old image if exists
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
                 if (!category.ImageUrl.IsNullOrEmpty())
                 {
@@ -110,7 +112,7 @@ namespace StyleHubWeb.Areas.Admin.Controllers
                     }
                 }
 
-                // Add new image
+                // Save the new image
                 string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                 string saveFolderPath = Path.Combine(wwwRootPath, @"images/categories");
                 using (var fileStream = new FileStream(Path.Combine(saveFolderPath,fileName), FileMode.Create))
@@ -120,7 +122,7 @@ namespace StyleHubWeb.Areas.Admin.Controllers
                 category.ImageUrl = @"/images/categories/" + fileName;
             }
 
-            // Update Category
+            // Update Category in db when valid
             if (ModelState.IsValid)
             {
                 _unitOfWork.CategoryRepo.Update(category);
