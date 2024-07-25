@@ -5,8 +5,6 @@ VisualStudioVersion = 17.8.34205.153
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StyleHubWeb", "BulkyWeb\StyleHubWeb.csproj", "{7B04A3BD-070D-4849-8385-0F7D04A61425}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bulky_Razor", "Bulky_Razor\Bulky_Razor.csproj", "{9CBF9E6E-E1A0-4F6C-A0B4-A2DBD370529D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StyleHub.DataAccess", "Bulky.DataAccess\StyleHub.DataAccess.csproj", "{378ADDA2-2BCC-4A37-AA89-17B34E2E6B4D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StyleHub.Models", "Bulky.Models\StyleHub.Models.csproj", "{DDBB9D83-1693-49C3-920E-011E9B641542}"
@@ -23,10 +21,6 @@ Global
 		{7B04A3BD-070D-4849-8385-0F7D04A61425}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B04A3BD-070D-4849-8385-0F7D04A61425}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B04A3BD-070D-4849-8385-0F7D04A61425}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9CBF9E6E-E1A0-4F6C-A0B4-A2DBD370529D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9CBF9E6E-E1A0-4F6C-A0B4-A2DBD370529D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9CBF9E6E-E1A0-4F6C-A0B4-A2DBD370529D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9CBF9E6E-E1A0-4F6C-A0B4-A2DBD370529D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{378ADDA2-2BCC-4A37-AA89-17B34E2E6B4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{378ADDA2-2BCC-4A37-AA89-17B34E2E6B4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{378ADDA2-2BCC-4A37-AA89-17B34E2E6B4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
