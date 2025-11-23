@@ -1,0 +1,253 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+@{
+    // Detect if we're in admin area
+    var isAdminArea = Context.Request.Path.StartsWithSegments("/Admin");
+    var isCustomerArea = Context.Request.Path.StartsWithSegments("/Customer");
+    var isIdentityArea = Context.Request.Path.StartsWithSegments("/Identity");
+
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BookNook</title>
+
+    <!-- CORE CSS (ALWAYS LOADED) -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+
+    <!-- SHARED THEME ELEMENTS -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/assets/css/font-awesome.css">
+
+    <!-- AREA-SPECIFIC CSS -->
+       <!-- ADMIN-ONLY CSS -->
+        <link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
+        <link rel="stylesheet" href="~/css/admin-overrides.css" asp-append-version="true" />
+
+        <!-- CUSTOMER-ONLY CSS -->
+        <link rel="stylesheet" href="~/assets/css/templatemo-hexashop.css">
+        <link rel="stylesheet" href="~/assets/css/owl-carousel.css">
+        <link rel="stylesheet" href="~/assets/css/lightbox.css">
+    
+
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+    @if (isCustomerArea)
+    {
+        <!-- ***** Preloader Start ***** -->
+        <div id="preloader">
+            <div class="jumper">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <!-- ***** Preloader End ***** -->
+    }
+
+    <header>
+        @if (isAdminArea)
+        {
+            <!-- ADMIN NAVIGATION -->
+            <nav class="navbar navbar-expand-lg bg-primary border-bottom box-shadow mb-3" data-bs-theme="dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BookNook Admin</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">
+                                    <span class="text-white">CONTENT MANAGEMENT</span>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Categories</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Products</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">Users</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Role" asp-action="Index">Roles</a>
+                                </div>
+                            </li>
+                        </ul>
+                        <partial name="_LoginPartial" />
+                    </div>
+                </div>
+            </nav>
+        }
+        else
+        {
+            <!-- CUSTOMER NAVIGATION (Hexashop) -->
+            <div class="header-area header-sticky">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <nav class="main-nav">
+                                <!-- Logo -->
+                                <a href="index.html" class="logo">
+                                    <img src="~/assets/images/logo.png">
+                                </a>
+
+                                <!-- Menu -->
+                                <ul class="nav">
+                                    <li class="scroll-to-section">
+                                        <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="active">Home</a>
+                                    </li>
+                                    @if (!isIdentityArea)
+                                    {
+                                        <li><a asp-controller="Home" asp-action="Index" asp-fragment="men">Men's</a></li>
+                                        <li><a asp-controller="Home" asp-action="Index" asp-fragment="women">Women's</a></li>
+                                        <li><a asp-controller="Home" asp-action="Index" asp-fragment="kids">Kid's</a></li>
+                                        @* <li class="scroll-to-section"><a href="#kids">Kid's</a></li> *@
+                                    }
+                                    
+
+                                    @if (User.IsInRole(SD.Role_Admin))
+                                    {
+                                        <li class="scroll-to-section">
+                                            <a asp-area="Admin" asp-controller="Category" asp-action="Index">Admin Panel</a>
+                                        </li>
+                                    }
+
+                                    @if (SignInManager.IsSignedIn(User))
+                                    {
+                                        <li><a asp-area="Customer" asp-controller="Cart" asp-action="Index">My Cart</a></li>
+                                    }
+
+                                    <li><a asp-area="Customer" asp-controller="Home" asp-action="AboutUs">About Us</a></li>
+                                    <li><a asp-area="Customer" asp-controller="Home" asp-action="ContactUs">Contact Us</a></li>
+                                    <partial name="_LoginPartial" />
+                                </ul>
+
+                                <a class='menu-trigger'>
+                                    <span>Menu</span>
+                                </a>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </header>
+
+    <div class="@(isAdminArea ? "container" : "")">
+        <main role="main" class="pb-3">
+            <partial name="_Notification" />
+            @RenderBody()
+        </main>
+    </div>
+
+    @if (isAdminArea)
+    {
+        <!-- SIMPLE ADMIN FOOTER -->
+        <footer class="border-top footer bg-light text-muted text-center">
+            <div class="container">
+                &copy; @DateTime.Now.Year - BookNook Admin
+            </div>
+        </footer>
+    }
+    else
+    {
+        <!-- CUSTOMER FOOTER (Hexashop) -->
+        <!-- ***** Footer Start ***** -->
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="first-item">
+                            <div class="logo">
+                                <img src="~/assets/images/white-logo.png" alt="hexashop ecommerce templatemo">
+                            </div>
+                            <ul>
+                                <li><a href="#">16501 Collins Ave, Sunny Isles Beach, FL 33160, United States</a></li>
+                                <li><a href="#">hexashop@company.com</a></li>
+                                <li><a href="#">010-020-0340</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <h4>Shopping &amp; Categories</h4>
+                        <ul>
+                            <li><a href="#">Men’s Shopping</a></li>
+                            <li><a href="#">Women’s Shopping</a></li>
+                            <li><a href="#">Kid's Shopping</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3">
+                        <h4>Useful Links</h4>
+                        <ul>
+                            <li><a href="#">Homepage</a></li>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Help</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3">
+                        <h4>Help &amp; Information</h4>
+                        <ul>
+                            <li><a href="#">Help</a></li>
+                            <li><a href="#">FAQ's</a></li>
+                            <li><a href="#">Shipping</a></li>
+                            <li><a href="#">Tracking ID</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="under-footer">
+                            <p>
+                                Copyright © 2023 HexaShop Co., Ltd. All Rights Reserved.
+
+                                <br>Design: <a href="https://templatemo.com" target="_parent" title="free css templates">TemplateMo</a>
+                            </p>
+                            <ul>
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    }
+
+    <!-- COMMON JS (used by both) -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if (isAdminArea)
+    {
+        <!-- ADMIN-SPECIFIC JS -->
+        <script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.tiny.cloud/1/your-api-key/tinymce/6/tinymce.min.js"></script>
+    }
+    else
+    {
+        <!-- CUSTOMER-SPECIFIC JS (Hexashop) -->
+        <script src="~/assets/js/popper.js"></script>
+        <script src="~/assets/js/bootstrap.min.js"></script>
+        <script src="~/assets/js/owl-carousel.js"></script>
+        <script src="~/assets/js/accordions.js"></script>
+        <script src="~/assets/js/datepicker.js"></script>
+        <script src="~/assets/js/scrollreveal.min.js"></script>
+        <script src="~/assets/js/waypoints.min.js"></script>
+        <script src="~/assets/js/jquery.counterup.min.js"></script>
+        <script src="~/assets/js/imgfix.min.js"></script>
+        <script src="~/assets/js/slick.js"></script>
+        <script src="~/assets/js/lightbox.js"></script>
+        <script src="~/assets/js/isotope.js"></script>
+        <script src="~/assets/js/custom.js"></script>
+    }
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

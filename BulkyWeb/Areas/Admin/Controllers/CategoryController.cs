@@ -135,37 +135,37 @@ namespace StyleHubWeb.Areas.Admin.Controllers
         }
 
 
-        //public IActionResult Delete(int id)
-        //{
-        //    if (id == null || id == 0)
-        //    {
-        //        return NotFound();
-        //    }
+        public IActionResult Delete(int id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
 
-        //    Category? category = _unitOfWork.CategoryRepo.Get(id);
-        //    if (category == null)
-        //    {
-        //        return NotFound();
-        //    }
+            Category? category = _unitOfWork.CategoryRepo.Get(c => c.Id == id);
+            if (category == null)
+            {
+                return NotFound();
+            }
 
-        //    return View(category);
-        //}
-        //[HttpPost, ActionName("Delete")]
-        //public IActionResult DeletePOST(int id)
-        //{
-        //    if (id == null || id == 0)
-        //    {
-        //        return NotFound();
-        //    }
-        //    Category? category = _unitOfWork.CategoryRepo.Get(id);
-        //    if (category != null)
-        //    {
-        //        _unitOfWork.CategoryRepo.Remove(category);
-        //        _unitOfWork.Save();
-        //        TempData["success"] = "Category deleted successfully";
-        //    }
-        //    return RedirectToAction("Index");
-        //}
+            return View(category);
+        }
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeletePOST(int id)
+        {
+            if (id.ToString() == null || id == 0)
+            {
+                return NotFound();
+            }
+            Category? category = _unitOfWork.CategoryRepo.Get(c => c.Id == id);
+            if (category != null)
+            {
+                _unitOfWork.CategoryRepo.Remove(category);
+                _unitOfWork.Save();
+                TempData["success"] = "Category deleted successfully";
+            }
+            return RedirectToAction("Index");
+        }
 
         #region API CALLS
         [HttpGet]
@@ -175,28 +175,28 @@ namespace StyleHubWeb.Areas.Admin.Controllers
             return Json(new {data  = Categories});
         }
 
-        [HttpDelete]
-        public IActionResult Delete(int id)
-        {
+        //[HttpDelete]
+        //public IActionResult Delete(int id)
+        //{
 
-            if(id.ToString() == null || id == 0)
-            {
-                return Json(new {success = false, message = "Error happened while deleting the category!"});
-            }
+        //    if(id.ToString() == null || id == 0)
+        //    {
+        //        return Json(new {success = false, message = "Error happened while deleting the category!"});
+        //    }
 
 
 
-            Category objectToBeDeleted = _unitOfWork.CategoryRepo.Get(o => o.Id == id);
-            string imagePath = _webHostEnvironment.WebRootPath + objectToBeDeleted.ImageUrl;
-            if (imagePath != null && System.IO.File.Exists(imagePath))
-            {
-                System.IO.File.Delete(imagePath);
-            }
-            _unitOfWork.CategoryRepo.Remove(id);
-            _unitOfWork.Save();
+        //    Category objectToBeDeleted = _unitOfWork.CategoryRepo.Get(o => o.Id == id);
+        //    string imagePath = _webHostEnvironment.WebRootPath + objectToBeDeleted.ImageUrl;
+        //    if (imagePath != null && System.IO.File.Exists(imagePath))
+        //    {
+        //        System.IO.File.Delete(imagePath);
+        //    }
+        //    _unitOfWork.CategoryRepo.Remove(id);
+        //    _unitOfWork.Save();
 
-            return Json(new { success = true, message= "Category Deleted successfully!" });
-        }
+        //    return Json(new { success = true, message= "Category Deleted successfully!" });
+        //}
 
 
         #endregion
