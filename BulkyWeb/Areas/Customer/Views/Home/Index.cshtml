@@ -63,7 +63,7 @@
                                             <div class="main-border-button">
                                                 @if (Model.menProducts?.FirstOrDefault()?.CategoryId != null)
                                                 {
-                                                <a asp-area="Customer" asp-controller="Home" asp-action="Products" asp-route-Id="@Model.menProducts.FirstOrDefault().CategoryId">Discover More</a>
+                                                    <a asp-area="Customer" asp-controller="Home" asp-action="Products" asp-route-Id="@Model.menProducts.FirstOrDefault().CategoryId">Discover More</a>
                                                 }
                                             </div>
                                         </div>
@@ -86,7 +86,7 @@
                                             <div class="main-border-button">
                                                 @if (Model.kidsProducts?.FirstOrDefault()?.CategoryId != null)
                                                 {
-                                                <a asp-area="Customer" asp-controller="Home" asp-action="Products" asp-route-Id="@Model.kidsProducts.FirstOrDefault().CategoryId">Discover More</a>
+                                                    <a asp-area="Customer" asp-controller="Home" asp-action="Products" asp-route-Id="@Model.kidsProducts.FirstOrDefault().CategoryId">Discover More</a>
                                                 }
                                             </div>
                                         </div>
@@ -126,10 +126,6 @@
     </div>
 </div>
 <!-- ***** Main Banner Area End ***** -->
-
-
-
-
 <!-- ***** Men Area Starts ***** -->
 <section class="section" id="men">
     <div class="container">
@@ -146,7 +142,7 @@
             <div class="col-lg-12">
                 <div class="men-item-carousel">
                     <div class="owl-men-item owl-carousel">
-                        @foreach(var product in Model.menProducts)
+                        @foreach (var product in Model.menProducts)
                         {
                             <div class="item">
                                 <div class="thumb">
@@ -154,7 +150,9 @@
                                         <ul>
                                             <li><a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-Id="@product.Id"><i class="fa fa-eye"></i></a></li>
                                             <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
-                                            <li><a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-Id="@product.Id"><i class="fa fa-shopping-cart"></i></a></li>
+                                            <li>
+                                                <a href="#" class="open-cart-modal" data-id="@product.Id" data-name="@product.Name" data-price="@product.Price" data-images="@string.Join("|", (product.ProductImages?.Select(pi => Url.Content(pi.ImageURL)) ?? new string[0]))"><i class="fa fa-shopping-cart"></i></a>
+                                            </li>
                                         </ul>
                                     </div>
                                     @if (product.ProductImages.Any())
@@ -178,9 +176,9 @@
                                     </ul>
                                 </div>
                             </div>
-                            
+
                         }
-                        
+
                     </div>
                 </div>
             </div>
@@ -188,9 +186,6 @@
     </div>
 </section>
 <!-- ***** Men Area Ends ***** -->
-
-
-
 <!-- ***** Women Area Starts ***** -->
 <section class="section" id="women">
     <div class="container">
@@ -207,7 +202,7 @@
             <div class="col-lg-12">
                 <div class="women-item-carousel">
                     <div class="owl-women-item owl-carousel">
-                        @foreach(var product in Model.womenProducts)
+                        @foreach (var product in Model.womenProducts)
                         {
                             <div class="item">
                                 <div class="thumb">
@@ -215,7 +210,9 @@
                                         <ul>
                                             <li><a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-Id="@product.Id"><i class="fa fa-eye"></i></a></li>
                                             <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
-                                            <li><a asp-area="Customer" asp-controller="Cart" asp-action="AddToCart" asp-route-Id="@product.Id"><i class="fa fa-shopping-cart"></i></a></li>
+                                            <li>
+                                                <a href="#" class="open-cart-modal" data-id="@product.Id" data-name="@product.Name" data-price="@product.Price" data-images="@string.Join("|", (product.ProductImages?.Select(pi => Url.Content(pi.ImageURL)) ?? new string[0]))"><i class="fa fa-shopping-cart"></i></a>
+                                            </li>
                                         </ul>
                                     </div>
                                     @if (product.ProductImages.Any())
@@ -240,9 +237,9 @@
                                     </ul>
                                 </div>
                             </div>
-                            
+
                         }
-                        
+
                     </div>
                 </div>
             </div>
@@ -250,9 +247,6 @@
     </div>
 </section>
 <!-- ***** Women Area Ends ***** -->
-
-
-
 <!-- ***** Kids Area Starts ***** -->
 <section class="section" id="kids">
     <div class="container">
@@ -269,7 +263,7 @@
             <div class="col-lg-12">
                 <div class="kid-item-carousel">
                     <div class="owl-kid-item owl-carousel">
-                        @foreach(var product in Model.kidsProducts)
+                        @foreach (var product in Model.kidsProducts)
                         {
                             <div class="item">
                                 <div class="thumb">
@@ -277,7 +271,9 @@
                                         <ul>
                                             <li><a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-Id="@product.Id"><i class="fa fa-eye"></i></a></li>
                                             <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
-                                            <li><a asp-area="Customer" asp-controller="Cart" asp-action="AddToCart" asp-route-Id="@product.Id"><i class="fa fa-shopping-cart"></i></a></li>
+                                            <li>
+                                                <a href="#" class="open-cart-modal" data-id="@product.Id" data-name="@product.Name" data-price="@product.Price" data-images="@string.Join("|", (product.ProductImages?.Select(pi => Url.Content(pi.ImageURL)) ?? new string[0]))"><i class="fa fa-shopping-cart"></i></a>
+                                            </li>
                                         </ul>
                                     </div>
                                     @if (product.ProductImages.Any())
@@ -288,7 +284,7 @@
                                     {
                                         <img src="/images/default-img.png" alt="ProductImage" style="width:250px; height:400px;">
                                     }
-                                    
+
                                 </div>
                                 <div class="down-content">
                                     <h4>@product.Name</h4>
@@ -312,146 +308,263 @@
     </div>
 </section>
 <!-- ***** Kids Area Ends ***** -->
-
-
-
-
-
-<!-- ***** Social Area Starts ***** -->
-    <section class="section" id="social">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-heading">
-                        <h2>Social Media</h2>
-                        <span>Details to details is what makes Hexashop different from the other themes.</span>
-                    </div>
-                </div>
+<!-- Modal markup for product quick view -->
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productModalTitle"></h5>
+                <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
-        </div>
-        <div class="container">
-            <div class="row images">
-                <div class="col-2">
-                    <div class="thumb">
-                        <div class="icon">
-                            <a href="http://instagram.com">
-                                <h6>Fashion</h6>
-                                <i class="fa fa-instagram"></i>
-                            </a>
+            <div class="modal-body fade-in-modal">
+                <div class="row">
+                    <div class="col-md-6 position-relative">
+                        <div class="product-image-wrap text-center">
+                            <img id="productModalMainImage" src="" class="img-fluid main-image" alt="Product" />
+                            <button id="imgPrev" class="img-nav img-prev" title="Previous">‹</button>
+                            <button id="imgNext" class="img-nav img-next" title="Next">›</button>
                         </div>
-                        <img src="~/assets/images/instagram-01.jpg" alt="">
+                        <div id="productModalThumbs" class="mt-2 d-flex justify-content-center flex-wrap"></div>
                     </div>
-                </div>
-                <div class="col-2">
-                    <div class="thumb">
-                        <div class="icon">
-                            <a href="http://instagram.com">
-                                <h6>New</h6>
-                                <i class="fa fa-instagram"></i>
-                            </a>
+                    <div class="col-md-6">
+                        <h4 id="productModalName" class="mb-1"></h4>
+                        <div class="d-flex align-items-center mb-2">
+                            <div id="productModalStars" class="mr-2 text-warning"></div>
+                            <div class="text-muted">(<span id="productModalComments">12</span> reviews)</div>
                         </div>
-                        <img src="~/assets/images/instagram-02.jpg" alt="">
-                    </div>
-                </div>
-                <div class="col-2">
-                    <div class="thumb">
-                        <div class="icon">
-                            <a href="http://instagram.com">
-                                <h6>Brand</h6>
-                                <i class="fa fa-instagram"></i>
-                            </a>
-                        </div>
-                        <img src="~/assets/images/instagram-03.jpg" alt="">
-                    </div>
-                </div>
-                <div class="col-2">
-                    <div class="thumb">
-                        <div class="icon">
-                            <a href="http://instagram.com">
-                                <h6>Makeup</h6>
-                                <i class="fa fa-instagram"></i>
-                            </a>
-                        </div>
-                        <img src="~/assets/images/instagram-04.jpg" alt="">
-                    </div>
-                </div>
-                <div class="col-2">
-                    <div class="thumb">
-                        <div class="icon">
-                            <a href="http://instagram.com">
-                                <h6>Leather</h6>
-                                <i class="fa fa-instagram"></i>
-                            </a>
-                        </div>
-                        <img src="~/assets/images/instagram-05.jpg" alt="">
-                    </div>
-                </div>
-                <div class="col-2">
-                    <div class="thumb">
-                        <div class="icon">
-                            <a href="http://instagram.com">
-                                <h6>Bag</h6>
-                                <i class="fa fa-instagram"></i>
-                            </a>
-                        </div>
-                        <img src="~/assets/images/instagram-06.jpg" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ***** Social Area Ends ***** -->
 
+                        <p class="lead">Price: <strong id="productModalPrice"></strong></p>
 
+                        <div class="product-colors mb-3">
+                            <div class="mb-1">Colors</div>
+                            <div class="d-flex" id="colorSwatches">
+                                <button class="color-swatch" style="background:#000" title="Black"></button>
+                                <button class="color-swatch" style="background:#c0392b" title="Red"></button>
+                                <button class="color-swatch" style="background:#3498db" title="Blue"></button>
+                            </div>
+                        </div>
 
-    <!-- ***** Subscribe Area Starts ***** -->
-    <div class="subscribe">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="section-heading">
-                        <h2>By Subscribing To Our Newsletter You Can Get 30% Off</h2>
-                        <span>Details to details is what makes Hexashop different from the other themes.</span>
-                    </div>
-                    <form id="subscribe" action="" method="get">
-                        <div class="row">
-                          <div class="col-lg-5">
-                            <fieldset>
-                              <input name="name" type="text" id="name" placeholder="Your Name" required="">
-                            </fieldset>
-                          </div>
-                          <div class="col-lg-5">
-                            <fieldset>
-                              <input name="email" type="text" id="email" pattern="" placeholder="Your Email Address" required="">
-                            </fieldset>
-                          </div>
-                          <div class="col-lg-2">
-                            <fieldset>
-                              <button type="submit" id="form-submit" class="main-dark-button"><i class="fa fa-paper-plane"></i></button>
-                            </fieldset>
-                          </div>
+                        <div class="product-sizes mb-3">
+                            <div class="mb-1">Size <small class="text-muted">(type)</small></div>
+                            <div class="d-flex align-items-center">
+                                <select id="sizeSelect" class="form-control" style="width:130px;">
+                                    <option>Small</option>
+                                    <option>Medium</option>
+                                    <option>Large</option>
+                                    <option>XL</option>
+                                </select>
+                                <svg width="14" height="14" viewBox="002424" fill="none" class="ml-2 text-muted" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M710l555-5" stroke="#6c757d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
                         </div>
-                    </form>
-                </div>
-                <div class="col-lg-4">
-                    <div class="row">
-                        <div class="col-6">
-                            <ul>
-                                <li>Store Location:<br><span>Sunny Isles Beach, FL 33160, United States</span></li>
-                                <li>Phone:<br><span>010-020-0340</span></li>
-                                <li>Office Location:<br><span>North Miami Beach</span></li>
-                            </ul>
+
+                        <div class="quantity-selector d-flex align-items-center mb-3">
+                            <button id="qtyMinus" class="btn btn-outline-secondary">-</button>
+                            <input id="qtyInput" type="number" min="1" value="1" class="form-control mx-2" style="width:80px;">
+                            <button id="qtyPlus" class="btn btn-outline-secondary">+</button>
                         </div>
-                        <div class="col-6">
-                            <ul>
-                                <li>Work Hours:<br><span>07:30 AM - 9:30 PM Daily</span></li>
-                                <li>Email:<br><span>info@company.com</span></li>
-                                <li>Social Media:<br><span><a href="#">Facebook</a>, <a href="#">Instagram</a>, <a href="#">Behance</a>, <a href="#">Linkedin</a></span></li>
-                            </ul>
-                        </div>
+                        <p class="mt-2">Total: <strong id="productModalTotal"></strong></p>
+                        <button id="addToCartBtn" class="btn btn-primary">Add to cart</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- ***** Subscribe Area Ends ***** -->
+</div>
+
+<style>
+    /* Modal enhancements - keep simple and non-invasive */
+    .fade-in-modal {
+        animation: fadeIn220ms ease-in;
+    }
+
+    .product-image-wrap {
+        position: relative;
+        padding: 10px;
+    }
+
+        .product-image-wrap .main-image {
+            max-height: 420px;
+            object-fit: contain;
+            transition: opacity180ms ease;
+        }
+
+    .img-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0,0,0,0.45);
+        color: white;
+        border: none;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        font-size: 22px;
+        line-height: 0;
+        cursor: pointer;
+    }
+
+    .img-prev {
+        left: 8px;
+    }
+
+    .img-next {
+        right: 8px;
+    }
+
+    #productModalThumbs img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        margin-right: 8px;
+        cursor: pointer;
+        border-radius: 4px;
+        border: 2px solid transparent;
+    }
+
+        #productModalThumbs img.active-thumb {
+            border-color: #007bff;
+        }
+
+    .color-swatch {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        box-shadow: 01px3px rgba(0,0,0,0.2);
+        margin-right: 8px;
+        cursor: pointer;
+    }
+
+        .color-swatch:focus, .color-swatch:hover {
+            outline: none;
+            transform: scale(1.05);
+            box-shadow: 03px8px rgba(0,0,0,0.25);
+        }
+    /* stars styling */
+    #productModalStars i {
+        margin-right: 4px;
+    }
+
+    @@media (max-width:575.98px) {
+        .product-image-wrap .main-image {
+            max-height: 280px;
+        }
+
+        .img-nav {
+            width: 30px;
+            height: 30px;
+            font-size: 18px;
+        }
+    }
+</style>
+
+@section Scripts {
+    <script>
+        $(function () {
+        var currentIndex =0;
+        var images = [];
+
+        $('.open-cart-modal').on('click', function (e) {
+        e.preventDefault();
+        var $el = $(this);
+        var id = $el.data('id');
+        var name = $el.data('name');
+        var price = parseFloat($el.data('price')) ||0;
+        var imagesData = $el.data('images') || '';
+        images = imagesData ? imagesData.split('|') : [];
+
+        $('#productModalName').text(name);
+        $('#productModalPrice').text(price.toFixed(2));
+        $('#productModalTitle').text(name);
+        $('#qtyInput').val(1);
+        $('#productModalTotal').text((price).toFixed(2));
+        $('#addToCartBtn').data('product-id', id).data('price', price);
+
+        // populate stars (static demo:4/5)
+        var starsContainer = $('#productModalStars').empty();
+        var rating =4; // static for now
+        for (var s =1; s <=5; s++) {
+        var cls = s <= rating ? 'fa fa-star' : 'fa fa-star-o';
+        starsContainer.append($('<i>').addClass(cls));
+        }
+        $('#productModalComments').text(12); // static count
+
+        // populate images
+        if (images.length) {
+        currentIndex =0;
+        $('#productModalMainImage').attr('src', images[0]).css('opacity',0).animate({opacity:1},200);
+        var thumbs = $('#productModalThumbs').empty();
+        images.forEach(function (src, idx) {
+        var img = $('<img>').attr('src', src).addClass(idx ===0 ? 'active-thumb' : '');
+        img.on('click', function () { setImage(idx); });
+        thumbs.append(img);
+        });
+        } else {
+        images = ['/images/default-img.png'];
+        currentIndex =0;
+        $('#productModalMainImage').attr('src', images[0]);
+        $('#productModalThumbs').empty();
+        }
+
+        $('#productModal').modal('show');
+        });
+
+        function setImage(idx) {
+        if (!images || images.length ===0) return;
+        currentIndex = (idx + images.length) % images.length;
+        $('#productModalMainImage').fadeOut(100, function () {
+        $('#productModalMainImage').attr('src', images[currentIndex]).fadeIn(150);
+        });
+        $('#productModalThumbs img').removeClass('active-thumb').eq(currentIndex).addClass('active-thumb');
+        }
+
+        $('#imgNext').on('click', function () { setImage(currentIndex +1); });
+        $('#imgPrev').on('click', function () { setImage(currentIndex -1); });
+
+        // close button fix: explicitly hide modal
+        $('#productModal .close').on('click', function () { $('#productModal').modal('hide'); });
+
+        function updateTotal() {
+        var q = parseInt($('#qtyInput').val()) ||1;
+        var p = parseFloat($('#addToCartBtn').data('price')) ||0;
+        $('#productModalTotal').text((q * p).toFixed(2));
+        }
+
+        $('#qtyPlus').on('click', function () { var $i = $('#qtyInput'); $i.val(Math.max(1, parseInt($i.val()) ||1) +1); updateTotal(); });
+        $('#qtyMinus').on('click', function () { var $i = $('#qtyInput'); var v = Math.max(1, (parseInt($i.val()) ||1) -1); $i.val(v); updateTotal(); });
+        $('#qtyInput').on('input change', updateTotal);
+
+        $('#addToCartBtn').on('click', function () {
+        var productId = $(this).data('product-id');
+        var quantity = parseInt($('#qtyInput').val()) ||1;
+        $.ajax({
+        url: '@Url.Action("AddToCart", "Cart", new { area = "Customer" })',
+        method: 'POST',
+        data: { productId: productId, quantity: quantity },
+        success: function (res) {
+        if (res && res.success) {
+        $('#productModal').modal('hide');
+        // replace alert with nicer feedback later (toastr)
+        alert(res.message || 'Added to cart');
+        } else {
+        alert('Error: ' + (res.message || 'Could not add to cart'));
+        }
+        },
+        error: function () {
+        alert('Server error while adding to cart');
+        }
+        });
+        });
+
+        // small UX: allow left/right arrow keys when modal is open
+        $(document).on('keydown', function (e) {
+        if ($('#productModal').hasClass('show')) {
+        if (e.key === 'ArrowRight') setImage(currentIndex +1);
+        if (e.key === 'ArrowLeft') setImage(currentIndex -1);
+        }
+        });
+        });
+    </script>
+}

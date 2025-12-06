@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StyleHub.DataAccess.Repository.IRepository;
+using StyleHub.Models;
 
 
 namespace StyleHubWeb.Areas.Customer.Controllers
@@ -10,6 +12,13 @@ namespace StyleHubWeb.Areas.Customer.Controllers
     [Authorize]
     public class CartController : Controller
     {
+        private readonly IUnitOfWork _unitOfWork;
+
+        public CartController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }   
+
         // GET: CartController
         public ActionResult Index()
         {
@@ -23,15 +32,44 @@ namespace StyleHubWeb.Areas.Customer.Controllers
             return View();
         }
 
-        
+        // legacy GET stub kept for compatibility
         public ActionResult AddToCart(int id)
         {
-            // create a Cart for the user is he doesn't have one
-            // add the product to the cart with quantity = 1
-            // update the total price of the cart
-            // show notification success
-
+            // placeholder for GET route if needed by older code
             return View("Index");
+        }
+
+        // POST: CartController/AddToCart
+        [HttpPost]
+        [IgnoreAntiforgeryToken]
+        public IActionResult AddToCart(int productId, int quantity)
+        {
+            if (quantity <1) quantity =1;
+
+            var product = _unitOfWork.ProductRepo.Get(p => p.Id == productId, includeProperties: "ProductImages");
+            if (product == null)
+            {
+                return Json(new { success = false, message = "Product not found" });
+            }
+
+            var total = product.Price * quantity;
+
+            // NOTE: persistence (session / DB) is intentionally omitted for now.
+            // This endpoint returns the computed data so the client can proceed with UI updates.
+
+            return Json(new
+            {
+                success = true,
+                message = "Product added to cart (client-side).",
+                data = new
+                {
+                    productId = productId,
+                    productName = product.Name,
+                    unitPrice = product.Price,
+                    quantity = quantity,
+                    totalPrice = total
+                }
+            });
         }
 
         // POST: CartController/Create
