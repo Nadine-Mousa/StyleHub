@@ -308,17 +308,21 @@
     </div>
 </section>
 <!-- ***** Kids Area Ends ***** -->
-<!-- Modal markup for product quick view -->
+
+
+<!-- Cart Modal -->
 <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="productModalTitle"></h5>
+                @* close button  *@
                 <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body fade-in-modal">
                 <div class="row">
                     <div class="col-md-6 position-relative">
+                        @* images  *@
                         <div class="product-image-wrap text-center">
                             <img id="productModalMainImage" src="" class="img-fluid main-image" alt="Product" />
                             <button id="imgPrev" class="img-nav img-prev" title="Previous">‹</button>
@@ -329,12 +333,15 @@
                     <div class="col-md-6">
                         <h4 id="productModalName" class="mb-1"></h4>
                         <div class="d-flex align-items-center mb-2">
+                            @* rate  *@
                             <div id="productModalStars" class="mr-2 text-warning"></div>
+                            @* reviews  *@
                             <div class="text-muted">(<span id="productModalComments">12</span> reviews)</div>
                         </div>
-
+                        @* single price  *@
                         <p class="lead">Price: <strong id="productModalPrice"></strong></p>
 
+                        @* colors  *@
                         <div class="product-colors mb-3">
                             <div class="mb-1">Colors</div>
                             <div class="d-flex" id="colorSwatches">
@@ -344,6 +351,7 @@
                             </div>
                         </div>
 
+                        @* Product Sizes *@
                         <div class="product-sizes mb-3">
                             <div class="mb-1">Size <small class="text-muted">(type)</small></div>
                             <div class="d-flex align-items-center">
@@ -364,7 +372,9 @@
                             <input id="qtyInput" type="number" min="1" value="1" class="form-control mx-2" style="width:80px;">
                             <button id="qtyPlus" class="btn btn-outline-secondary">+</button>
                         </div>
+                        @* Total price  *@
                         <p class="mt-2">Total: <strong id="productModalTotal"></strong></p>
+
                         <button id="addToCartBtn" class="btn btn-primary">Add to cart</button>
                     </div>
                 </div>
@@ -537,25 +547,26 @@
         $('#qtyInput').on('input change', updateTotal);
 
         $('#addToCartBtn').on('click', function () {
-        var productId = $(this).data('product-id');
-        var quantity = parseInt($('#qtyInput').val()) ||1;
-        $.ajax({
-        url: '@Url.Action("AddToCart", "Cart", new { area = "Customer" })',
-        method: 'POST',
-        data: { productId: productId, quantity: quantity },
-        success: function (res) {
-        if (res && res.success) {
-        $('#productModal').modal('hide');
-        // replace alert with nicer feedback later (toastr)
-        alert(res.message || 'Added to cart');
-        } else {
-        alert('Error: ' + (res.message || 'Could not add to cart'));
-        }
-        },
-        error: function () {
-        alert('Server error while adding to cart');
-        }
-        });
+            var productId = $(this).data('product-id');
+            var quantity = parseInt($('#qtyInput').val()) ||1;
+
+            $.ajax({
+                url: '@Url.Action("AddToCart", "Cart", new { area = "Customer" })',
+                method: 'POST',
+                data: { productId: productId, quantity: quantity },
+                success: function (res) {
+                if (res && res.success) {
+                    $('#productModal').modal('hide');
+                    // replace alert with nicer feedback later (toastr)
+                    alert(res.message || 'Added to cart');
+                } else {
+                alert('Error: ' + (res.message || 'Could not add to cart'));
+                }
+            },
+            error: function () {
+            alert('Server error while adding to cart');
+            }
+            });
         });
 
         // small UX: allow left/right arrow keys when modal is open

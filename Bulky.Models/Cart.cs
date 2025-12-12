@@ -14,9 +14,11 @@ namespace StyleHub.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public double TotalPrice { get; set; } = 0;
         public DateTime CreatedDate { get; set;}
         public DateTime ModifiedDate { get; set;}
+
+        public virtual ICollection<CartItem>? CartItems { get; set; }
     }
 }

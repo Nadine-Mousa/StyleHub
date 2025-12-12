@@ -11,6 +11,8 @@ namespace StyleHub.DataAccess.Repository.IRepository
         public IRepositoryCategory CategoryRepo { get; }
         public ProductRepository ProductRepo { get; }
         public ProductImageRepository ProductImageRepo { get; }
+        public ICartItemRepo CartItemRepo { get; }
+        public ICartRepository CartRepo { get; }
         public void Save();
     }
 }

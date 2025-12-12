@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,13 +17,17 @@ namespace StyleHub.DataAccess.Repository
         public IRepositoryCategory CategoryRepo { get; private set; }
         public ProductRepository ProductRepo { get; private set; }
         public ProductImageRepository ProductImageRepo { get; private set; }
-        
+        public ICartRepository CartRepo { get; private set; }
+        public ICartItemRepo CartItemRepo { get; private set; }
+
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
             CategoryRepo = new CategoryRepository(_db);
             ProductRepo = new ProductRepository(_db);
             ProductImageRepo = new ProductImageRepository(_db);
+            CartRepo = new CartRepository(_db);
+            CartItemRepo = new CartItemRepo(_db);
         }
 
 

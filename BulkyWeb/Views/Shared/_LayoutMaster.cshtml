@@ -116,13 +116,13 @@
                                         </li>
                                     }
 
-                                    @if (SignInManager.IsSignedIn(User))
-                                    {
-                                        <li><a asp-area="Customer" asp-controller="Cart" asp-action="Index">My Cart</a></li>
-                                    }
+                                    
+                                    
 
                                     <li><a asp-area="Customer" asp-controller="Home" asp-action="AboutUs">About Us</a></li>
                                     <li><a asp-area="Customer" asp-controller="Home" asp-action="ContactUs">Contact Us</a></li>
+                                    <li><a asp-area="Customer" asp-controller="Cart" asp-action="Index"> My Cart</a></li>
+
                                     <partial name="_LoginPartial" />
                                 </ul>
 
