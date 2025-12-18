@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StyleHub.DataAccess.Repository.IRepository;
 using StyleHub.Models;
+using StyleHub.Models.ViewModel;
 using StyleHub.Utility;
 using System.Security.Claims;
 
@@ -26,8 +27,13 @@ namespace StyleHubWeb.Areas.Customer.Controllers
         // GET: CartController
         public ActionResult Index()
         {
-            
-            return View();
+            CartWithItemsVM cartWithItemsVM = new CartWithItemsVM()
+            {
+                Cart = _unitOfWork.CartRepo.Get(c => c.UserId == _userManager.GetUserId(User)),
+                CartItems = _unitOfWork.CartItemRepo.Where(ci => ci.Cart.UserId == _userManager.GetUserId(User), "Product,Product.ProductImages").ToList()
+            };
+
+            return View(cartWithItemsVM);
         }
 
         // GET: CartController/Details/5
@@ -119,6 +125,74 @@ namespace StyleHubWeb.Areas.Customer.Controllers
                 }
             });
         }
+        [HttpPost]
+        public ActionResult UpdateCartItemQuantity(int CartItemId, int value)   // + for increament, -ve for decrement
+        {
+            if(CartItemId == 0 || CartItemId.ToString() == null)
+            {
+                return Json(new { success = false, message = "Invalid Cart Item Id" });
+            }
+
+            // get that cart item
+            var cartItem = _unitOfWork.CartItemRepo.Get(ci => ci.Id == CartItemId);
+
+
+            // increment that cart item quantity by 1
+            if (cartItem == null)
+            {
+                return Json(new { sucess = false, message = "Cart Not Found" });
+            }
+            cartItem.Quantity += value;
+            cartItem.TotalPrice = cartItem.Quantity * _unitOfWork.ProductRepo.Get(p => p.Id == cartItem.ProductId).Price;
+            _unitOfWork.CartItemRepo.Update(cartItem);
+
+            var cart = _unitOfWork.CartRepo.Get(c => c.Id == cartItem.CartId, "CartItems");
+            if (cart != null)
+            {
+                cart.TotalPrice = cart.CartItems?.Sum(ci => ci.TotalPrice) ?? 0;
+                _unitOfWork.CartRepo.Update(cart);
+            }
+
+            _unitOfWork.Save();
+
+            return Json(new { success = true, message = "Cart Item Quantity Incremented Successfully", 
+                    data = new { cartItemId = cartItem.Id, newQuantity = cartItem.Quantity,
+                    newTotalPrice = cartItem.TotalPrice } });
+
+        }
+        
+        // POST: CartController/DeleteCartItem
+        [HttpPost]
+        public ActionResult DeleteCartItem(int cartItemId)
+        {
+            int cartId = -1;
+
+            // delete cart item
+            var cartItem = _unitOfWork.CartItemRepo.Get(ci => ci.Id == cartItemId);
+            if(cartItem != null)
+            {
+                cartId = cartItem.CartId;
+                _unitOfWork.CartItemRepo.Remove(cartItem);
+                _unitOfWork.Save();
+                // update cart total price
+                UpdateCartTotalPrice(cartId);
+                return Json(new { success = true, message = "Cart Item Deleted Successfully" });
+            }
+            
+            return Json(new { success = false, message = "Cart Item Not Found" });
+            
+
+        }
+        private void UpdateCartTotalPrice(int cartId)
+        {
+            var cart = _unitOfWork.CartRepo.Get(c => c.Id == cartId, "CartItems");
+            if (cart != null)
+            {
+                cart.TotalPrice = cart.CartItems?.Sum(ci => ci.TotalPrice) ?? 0;
+                _unitOfWork.CartRepo.Update(cart);
+                _unitOfWork.Save();
+            }
+        } 
 
         // POST: CartController/Create
         [HttpPost]

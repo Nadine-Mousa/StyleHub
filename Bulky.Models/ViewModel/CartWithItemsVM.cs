@@ -9,6 +9,6 @@ namespace StyleHub.Models.ViewModel
     public class CartWithItemsVM
     {
         public Cart Cart { get; set; }
-        public IEnumerable<CartItem> CartItems { get; set; }
+        public List<CartItem> CartItems { get; set; }
     }
 }

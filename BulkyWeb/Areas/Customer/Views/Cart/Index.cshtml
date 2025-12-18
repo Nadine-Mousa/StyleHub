@@ -8,6 +8,13 @@
     <!--End Cart-->
 </head>
 
+<style>
+    .icon-space {
+         margin-right: 10px;
+    }
+
+</style>
+
 <body>
 
     <div id="cart-body">
@@ -16,56 +23,44 @@
                 <div class="col-md-8 cart">
                     <div class="title">
                         <div class="row">
-                            <div class="col"><h4><b>Shopping Cart</b></h4></div>
-                            <div class="col align-self-center text-right text-muted">3 items</div>
+                            <div class="col"> <input id="select-all-checkbox" onclick="selectAll();" type="checkbox" /></div>
+                            <div class="col-8"><h4><b>My Shopping Cart</b></h4></div>
+                            <div class="col align-self-center text-right text-muted"> @Model.CartItems.Count items</div>
                         </div>
                     </div>
-                    <div class="row border-top border-bottom">
-                        <div class="row main align-items-center">
-                            <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/1GrakTl.jpg"></div>
-                            <div class="col">
-                                <div class="row text-muted">Shirt</div>
-                                <div class="row">Cotton T-shirt</div>
+                    @foreach (var cartItem in Model.CartItems)
+                    {
+                        <div class="row border-top border-bottom">
+                            <div class="row main align-items-center">
+                                <div class="col"><input id="checkbox-@cartItem.Id" type="checkbox" class="cart-item-checkbox" onchange="UpdateSelectedCount('checkbox-@cartItem.Id');" /></div>
+                                <div class="col-2"> <img class="img-fluid" src="@cartItem.Product?.ProductImages?.FirstOrDefault()?.ImageURL"> </div>
+                                <div class="col">
+                                    <div class="row"> <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-id="@cartItem.ProductId"> @cartItem.Product?.Name </a></div>
+                                </div>
+                                <div class="col">
+                                    <a id="a-cart" onclick="UpdateQuantity(@cartItem.Id, -1);" href="#">-</a>
+                                    <a id="qty-@cartItem.Id"  class="border ">@cartItem.Quantity</a>
+                                    <a id="a-cart" onclick="UpdateQuantity(@cartItem.Id, 1);" href="#">+</a>
+                                </div>
+                                <div class="col">
+                                    <span id="total-price-@cartItem.Id">EGP @cartItem.TotalPrice </span>
+                                    
+                                </div>
+                                <div class="col">
+                                    <span class="fa fa-trash icon-space" style="cursor: pointer;" onclick="confirmDelete(@cartItem.Id);"></span>
+                                    <span class="fa fa-heart" style="cursor: pointer;"></span>
+                                </div>
                             </div>
-                            <div class="col">
-                                <a id="a-cart" href="#">-</a><a  id="a-cart" href="#" class="border">1</a><a id="a-cart" href="#">+</a>
-                            </div>
-                            <div class="col">&euro; 44.00 <span class="close">&#10005;</span></div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="row main align-items-center">
-                            <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/ba3tvGm.jpg"></div>
-                            <div class="col">
-                                <div class="row text-muted">Shirt</div>
-                                <div class="row">Cotton T-shirt</div>
-                            </div>
-                            <div class="col">
-                                <a id="a-cart" href="#">-</a><a id="a-cart" href="#" class="border">1</a><a id="a-cart" href="#">+</a>
-                            </div>
-                            <div class="col">&euro; 44.00 <span class="close">&#10005;</span></div>
-                        </div>
-                    </div>
-                    <div class="row border-top border-bottom">
-                        <div class="row main align-items-center">
-                            <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/pHQ3xT3.jpg"></div>
-                            <div class="col">
-                                <div class="row text-muted">Shirt</div>
-                                <div class="row">Cotton T-shirt</div>
-                            </div>
-                            <div class="col">
-                                <a id="a-cart" href="#">-</a><a id="a-cart" href="#" class="border">1</a><a id="a-cart" href="#">+</a>
-                            </div>
-                            <div class="col">&euro; 44.00 <span class="close">&#10005;</span></div>
-                        </div>
-                    </div>
-                    <div class="back-to-shop"><a id="a-cart" href="#">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
+                    }
+
+                    <div class="back-to-shop"><a id="a-cart" asp-area="Customer" asp-controller="Home" asp-action="Index">&leftarrow;<span class="text-muted">Back to shop</span></a></div>
                 </div>
                 <div class="col-md-4 summary">
                     <div><h5><b>Summary</b></h5></div>
                     <hr>
                     <div class="row">
-                        <div class="col" style="padding-left:0;">ITEMS 3</div>
+                        <div class="col" style="padding-left:0;">ITEMS <span id="selected-cart-items"></span></div>
                         <div class="col text-right">&euro; 132.00</div>
                     </div>
                     <form>
@@ -93,5 +88,109 @@
 
     <script>
 
+       
+        var selectedItemsCount = 0;
+        document.getElementById('selected-cart-items').innerText = selectedItemsCount;
+
+
+        function UpdateQuantity(cartItemId, value){
+            // validation
+            var currentQuantity = Number(document.getElementById('qty-' + cartItemId).innerText);
+            if(currentQuantity <= 0 && value == -1 ){
+                return;
+            }
+
+            $.ajax({
+                url: '@Url.Action("UpdateCartItemQuantity", "Cart", new { area = "Customer" })',
+                method: 'POST',
+                data: { cartItemId: cartItemId, value: value },
+                success: function (res) {
+                if (res && res.success) {
+                    document.getElementById('qty-' + cartItemId).innerText = res.data.newQuantity;
+                    document.getElementById('total-price-' + cartItemId).innerText = 'EGP ' + Number(res.data.newTotalPrice).toFixed(2);
+
+                } else {
+                alert('Error: ' + (res.message));
+                }
+            }
+            });
+        }
+
+        function selectAll(){
+
+            var selectAllCheckbox = document.getElementById('select-all-checkbox');
+            var isChecked = selectAllCheckbox.checked;
+
+            document.querySelectorAll('.cart-item-checkbox')
+            .forEach(cb => cb.checked = isChecked);
+
+            if(isChecked){
+                selectedItemsCount = document.querySelectorAll('.cart-item-checkbox').length;
+            }
+            else {
+                selectedItemsCount = 0;
+            }
+            document.getElementById('selected-cart-items').innerText = selectedItemsCount;
+            
+        }
+
+        function UpdateSelectedCount(id){
+            selectedItemsCount += (document.getElementById(id).checked  == true) ? 1: -1;
+            if(selectedItemsCount < 0){
+                selectedItemsCount = 0;
+            }
+            document.getElementById('selected-cart-items').innerText = selectedItemsCount;
+
+        }
+
+        function confirmDelete(cartItemId){
+
+          Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+          if (result.isConfirmed) {
+
+             deleteCartItem(cartItemId);
+
+
+            
+          }
+        });
+        }
+
+        function deleteCartItem(cartItemId){
+            $.ajax({
+                url: '@Url.Action("DeleteCartItem", "Cart", new { area = "Customer" })',
+                method: 'POST',
+                data: { cartItemId: cartItemId },
+                success: function (res) {
+                if (res && res.success) {
+                    Swal.fire({
+                      title: "Deleted!",
+                      text: "Item removed from your cart.",
+                      icon: "success"
+                    });
+                    location.reload();
+                } else {
+                   Swal.fire({
+                      icon: "error",
+                      title: "Oops...",
+                      text: "Something went wrong!",
+                    });
+
+                }
+            }
+            });
+        }
+
+         
+
     </script>
+
 </body>
