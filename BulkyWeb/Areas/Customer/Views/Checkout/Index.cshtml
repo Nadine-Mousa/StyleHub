@@ -1,0 +1,81 @@
+﻿@model CartWithItemsVM
+
+@{
+    var total = Model.CartItems.Sum(item => item.TotalPrice);
+}
+
+    
+
+
+<div class="container" style="padding-top:80px;">
+    <h1>Checkout</h1>
+
+    @if (!(Model?.CartItems?.Any() ?? false))
+    {
+        <div class="alert alert-info">
+            No items selected for checkout. <a asp-area="Customer" asp-controller="Cart" asp-action="Index">Return to cart</a>.
+        </div>
+    }
+    else
+    {
+        <div class="mb-3">
+            <label>Amount: @total.ToString("F2")</label>
+        </div>
+
+        <div class="text-center">
+            <div id="paypal-button-container"></div>
+        </div>
+
+        <!-- Render selected items summary (optional) -->
+        <ul class="list-unstyled mt-3">
+            @foreach (var item in Model.CartItems)
+            {
+                <li>@item.Product?.Name - EGP @item.TotalPrice.ToString("F2") (Qty: @item.Quantity)</li>
+            }
+        </ul>
+    }
+</div>
+
+
+
+
+
+@section Scripts {
+    @*Use ViewBag.ClientId to load Paypal Javascript SDK*@
+    <script src="https://www.paypal.com/sdk/js?client-id=replace-with-clinet-id&currency=EUR"></script>
+    <script>
+        paypal.Buttons({
+            
+            style: {
+                layout: 'vertical',
+                color: 'silver',
+                tagline: 'false'
+            },
+            createOrder: (data, actions) => {
+
+                return fetch("@Url.Action("Order")", {
+                    method: "post",
+                }).then((response) => {
+                    if (!response.ok) {
+                        return response.json().then(error => { throw error; });
+                    }
+
+                    return response.json();
+                }).then((order) => order.id)
+                    .catch(error => alert(error.message));
+            },
+            onApprove: (data, actions) => {
+                debugger
+                return fetch(`@Url.Action("Capture")?orderId=${data.orderID}`, {
+                    method: "post",
+                }).then((response) => {
+                    if (!response.ok) {
+                        return response.json().then(error => { throw error; });
+                    }
+
+                    window.location.href = "@Url.Action("Success")";
+                }).catch(error => alert(error.message));
+            }
+        }).render('#paypal-button-container');
+    </script>
+}

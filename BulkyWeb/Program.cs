@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 using StyleHub.Models;
 using System.Net.Mail;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,6 +56,13 @@ builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddRazorPages();
 
+// Payment Paypal
+builder.Services.AddSingleton(sp => new PayPalClient(
+    builder.Configuration["PayPalOptions:ClientId"],
+    builder.Configuration["PayPalOptions:ClientSecret"],
+    builder.Configuration["PayPalOptions:Mode"]
+    )
+);
 
 
 var app = builder.Build();

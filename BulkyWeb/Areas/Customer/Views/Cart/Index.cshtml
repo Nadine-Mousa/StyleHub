@@ -18,66 +18,71 @@
 <body>
 
     <div id="cart-body">
-        <div id="cart-card">
-            <div class="row">
-                <div class="col-md-8 cart">
-                    <div class="title">
-                        <div class="row">
-                            <div class="col"> <input id="select-all-checkbox" onclick="selectAll();" type="checkbox" /></div>
-                            <div class="col-8"><h4><b>My Shopping Cart</b></h4></div>
-                            <div class="col align-self-center text-right text-muted"> @Model.CartItems.Count items</div>
-                        </div>
-                    </div>
-                    @foreach (var cartItem in Model.CartItems)
-                    {
-                        <div class="row border-top border-bottom">
-                            <div class="row main align-items-center">
-                                <div class="col"><input id="checkbox-@cartItem.Id" type="checkbox" class="cart-item-checkbox" onchange="UpdateSelectedCount('checkbox-@cartItem.Id');" /></div>
-                                <div class="col-2"> <img class="img-fluid" src="@cartItem.Product?.ProductImages?.FirstOrDefault()?.ImageURL"> </div>
-                                <div class="col">
-                                    <div class="row"> <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-id="@cartItem.ProductId"> @cartItem.Product?.Name </a></div>
-                                </div>
-                                <div class="col">
-                                    <a id="a-cart" onclick="UpdateQuantity(@cartItem.Id, -1);" href="#">-</a>
-                                    <a id="qty-@cartItem.Id"  class="border ">@cartItem.Quantity</a>
-                                    <a id="a-cart" onclick="UpdateQuantity(@cartItem.Id, 1);" href="#">+</a>
-                                </div>
-                                <div class="col">
-                                    <span id="total-price-@cartItem.Id">EGP @cartItem.TotalPrice </span>
-                                    
-                                </div>
-                                <div class="col">
-                                    <span class="fa fa-trash icon-space" style="cursor: pointer;" onclick="confirmDelete(@cartItem.Id);"></span>
-                                    <span class="fa fa-heart" style="cursor: pointer;"></span>
-                                </div>
+            <div id="cart-card">
+            <form method="post" asp-area="Customer" asp-controller="Checkout" asp-action="Index">
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-md-8 cart">
+                        <div class="title">
+                            <div class="row">
+                                <div class="col"><input id="select-all-checkbox" onclick="selectAll();" type="checkbox" /></div>
+                                <div class="col-8"><h4><b>My Shopping Cart</b></h4></div>
+                                <div class="col align-self-center text-right text-muted"> @Model.CartItems.Count items</div>
                             </div>
                         </div>
-                    }
+                        @foreach (var cartItem in Model.CartItems)
+                        {
+                            <div class="row border-top border-bottom">
+                                <div class="row main align-items-center">
+                                    <div class="col"><input name="cartItemId" value="@cartItem.Id" id="checkbox-@cartItem.Id" data-cart-item-id="@cartItem.Id" type="checkbox" class="cart-item-checkbox" onchange="UpdateSelectedCount('checkbox-@cartItem.Id');" /></div>
+                                    <div class="col-2"> <img class="img-fluid" src="@cartItem.Product?.ProductImages?.FirstOrDefault()?.ImageURL"> </div>
+                                    <div class="col">
+                                        <div class="row"> <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-id="@cartItem.ProductId"> @cartItem.Product?.Name </a></div>
+                                    </div>
+                                    <div class="col">
+                                        <a id="a-cart" onclick="UpdateQuantity(@cartItem.Id, -1);">-</a>
+                                        <a id="qty-@cartItem.Id" class="border ">@cartItem.Quantity</a>
+                                        <a id="a-cart" onclick="UpdateQuantity(@cartItem.Id, 1);">+</a>
+                                    </div>
+                                    <div class="col">
+                                        <span id="total-price-@cartItem.Id">EGP @cartItem.TotalPrice </span>
 
-                    <div class="back-to-shop"><a id="a-cart" asp-area="Customer" asp-controller="Home" asp-action="Index">&leftarrow;<span class="text-muted">Back to shop</span></a></div>
-                </div>
-                <div class="col-md-4 summary">
-                    <div><h5><b>Summary</b></h5></div>
-                    <hr>
-                    <div class="row">
-                        <div class="col" style="padding-left:0;">ITEMS <span id="selected-cart-items"></span></div>
-                        <div class="col text-right">&euro; 132.00</div>
+                                    </div>
+                                    <div class="col">
+                                        <span class="fa fa-trash icon-space" style="cursor: pointer;" onclick="confirmDelete(@cartItem.Id);"></span>
+                                        <span class="fa fa-heart" style="cursor: pointer;"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="back-to-shop"><a id="a-cart" asp-area="Customer" asp-controller="Home" asp-action="Index">&leftarrow;<span class="text-muted">Back to shop</span></a></div>
                     </div>
-                    <form>
-                        <p>SHIPPING</p>
+                    <div class="col-md-4 summary">
+                        <div><h5><b>Summary</b></h5></div>
+                        <hr>
+                        <div class="row">
+                            <div class="col" style="padding-left:0;">ITEMS <span id="selected-cart-items"></span></div>
+                            <div class="col text-right">&euro; 132.00</div>
+                        </div>
+
+                        <p>SHIPPING</p> 
                         <select><option class="text-muted">Standard-Delivery- &euro;5.00</option></select>
                         <p>GIVE CODE</p>
                         <input id="code" placeholder="Enter your code">
-                    </form>
-                    <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
-                        <div class="col">TOTAL PRICE</div>
-                        <div class="col text-right">&euro; 137.00</div>
-                    </div>
-                    <button class="btn">CHECKOUT</button>
-                </div>
-            </div>
 
-        </div>
+                        <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                            <div class="col">TOTAL PRICE</div>
+                            <div class="col text-right">&euro; 137.00</div>
+                        </div>
+                        <button id="checkout-btn" class="btn" disabled type="submit">CHECKOUT</button>
+
+
+                    </div>
+                </div>
+                </form>
+
+            </div>
     </div>
 
     <!--Cart-->
@@ -131,6 +136,7 @@
                 selectedItemsCount = 0;
             }
             document.getElementById('selected-cart-items').innerText = selectedItemsCount;
+            updateCheckoutButton();
             
         }
 
@@ -140,7 +146,7 @@
                 selectedItemsCount = 0;
             }
             document.getElementById('selected-cart-items').innerText = selectedItemsCount;
-
+            updateCheckoutButton();
         }
 
         function confirmDelete(cartItemId){
@@ -162,6 +168,7 @@
             
           }
         });
+        updateCheckoutButton();
         }
 
         function deleteCartItem(cartItemId){
@@ -189,8 +196,17 @@
             });
         }
 
-         
+        function updateCheckoutButton(){
+            if(selectedItemsCount > 0){
+                document.getElementById('checkout-btn').disabled = false;
+            }
+            else {
+                document.getElementById('checkout-btn').disabled = true;
+            }
+        }
 
+            
+        
     </script>
 
 </body>
